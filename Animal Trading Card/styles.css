@@ -5,6 +5,9 @@
     
 }
 .main {
+  position: relative;
+  left: 35%;
+  width: 27%;
     margin: 3%;
     box-shadow: 10px 10px 52px -9px rgba(0,0,0,0.75);
 }
