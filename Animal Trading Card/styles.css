@@ -1,0 +1,30 @@
+/* add your CSS here */
+.main, .container {
+    border: 1px grey solid;
+    padding: 3%;
+    
+}
+.main {
+    margin: 3%;
+    box-shadow: 10px 10px 52px -9px rgba(0,0,0,0.75);
+}
+#fact {
+    font-style: italic;
+}
+.label {
+    font-weight: bold;
+}
+div ul {
+    list-style: none;
+    padding: 0;
+}
+img {
+    padding-bottom: 3%;
+}
+/* 
+italicized text for the animal's interesting fact
+bolded labels for the animal's list items (e.g. 'Habitat')
+no dots for the animal's list items
+border around the animal's name, image, and information
+border around the animal's information
+spacing between the animal's name, image, and information (you will need to use the property padding) */
