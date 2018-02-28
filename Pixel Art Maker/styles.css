@@ -1,15 +1,23 @@
 body {
     text-align: center;
+    color: #89CD89;
 }
 
 h1 {
     font-family: Monoton;
     font-size: 70px;
     margin: 0.2em;
+    color: #f35626;
+    background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a) !important;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 60s infinite linear;
+  
 }
 
 h2 {
     margin: 1em 0 0.25em;
+    
 }
 
 h2:first-of-type {
@@ -37,4 +45,52 @@ td {
 
 input[type=number] {
     width: 6em;
+    border: none;
+    border-bottom: 2px solid black;
+    text-align: center;
+    color: black;
+    -webkit-text-fill-color: black;
+}
+#grid-size {
+    margin: 3%;
+    background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a) !important;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 60s infinite linear;
+}
+#grid-size form{
+    margin-top: 3%;
+}
+#color-pick h2 {
+    background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a) !important;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 60s infinite linear;
+}
+#select{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+#select .btn {
+    /* transition: all 3s; */
+    margin: 3%;
+    background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a) !important;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 60s infinite linear;
+}
+
+#canvas {
+    display: none;
+}
+
+@-webkit-keyframes hue {
+    from {
+      -webkit-filter: hue-rotate(0deg);
+    }
+    
+    to {
+      -webkit-filter: hue-rotate(360deg);
+    }
 }
