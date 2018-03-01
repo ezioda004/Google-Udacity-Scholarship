@@ -41,18 +41,19 @@ $("td").on("click", function(){
     console.log(colorPicked);
     $(this).css("background", colorPicked);
 });
-$("#select").addClass("animated fadeInDown");
+$("#select").css("top", "0");
     // fade
-$("#canvas").fadeIn(2000, function(){
-    
-});
-
+// $("#canvas").fadeIn(2000, function(){
+//     $(this).css("visibility", "visible")
+// }).css("visibility", "visible");
+$("#canvas").css({"opacity": "0","visibility": "visible"}).animate({opacity: 1}, 2000);
 
 
 }
 
 $("#submit").on("click", function(e){
     e.preventDefault();
+    // $("#canvas").fadeIn(1500).css("visibility", "visible");
     makeGrid();
    
 });

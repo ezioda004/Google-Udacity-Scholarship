@@ -71,6 +71,8 @@ input[type=number] {
     display: flex;
     justify-content: center;
     position: relative;
+    top: -70px;
+    transition: top 1.5s;
 }
 #select .btn {
     /* transition: all 3s; */
@@ -79,10 +81,22 @@ input[type=number] {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-animation: hue 60s infinite linear;
+    border: 1px solid #f35626;
+    color: #f35626;
+    
 }
 
 #canvas {
-    display: none;
+    visibility: hidden;
+    display: block;
+}
+#canvas h2 {
+        background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a) !important;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-animation: hue 60s infinite linear;
+        color: #f35626;
+    
 }
 
 @-webkit-keyframes hue {
