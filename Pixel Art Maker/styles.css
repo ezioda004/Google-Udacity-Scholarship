@@ -1,6 +1,7 @@
 body {
     text-align: center;
     color: #89CD89;
+    padding-bottom: 3%;
 }
 
 h1 {
@@ -33,6 +34,7 @@ td {
 table {
     border-collapse: collapse;
     margin: 0 auto;
+    box-shadow: 9px 10px 44px -9px rgba(0,0,0,0.75);
 }
 
 tr {
@@ -50,8 +52,10 @@ input[type=number] {
     text-align: center;
     color: black;
     -webkit-text-fill-color: black;
+    outline:none;
+    -webkit-animation: hue 60s infinite linear;
 }
-#grid-size {
+#grid-size div label, h2 {
     margin: 3%;
     background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a) !important;
     -webkit-background-clip: text;
@@ -59,6 +63,11 @@ input[type=number] {
     -webkit-animation: hue 60s infinite linear;
 }
 #grid-size form{
+    display:flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+#color-pick {
     margin-top: 3%;
 }
 #color-pick h2 {
@@ -71,24 +80,39 @@ input[type=number] {
     display: flex;
     justify-content: center;
     position: relative;
-    top: -70px;
+    top: -100px;
     transition: top 1.5s;
 }
 #select .btn {
     /* transition: all 3s; */
-    margin: 3%;
+    margin: 0 3%;
     background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a) !important;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-animation: hue 60s infinite linear;
-    border: 1px solid #f35626;
+    border: 1.5px solid #f35626;
     color: #f35626;
     
+    
+}
+#select .btn:focus{
+    outline: none;
+    box-shadow: none;
+}
+#select .btn:hover{
+    box-shadow: 0px 0px 10px 3px #f35626;
+
 }
 
+.btn-animate {
+    position: relative!important;
+    top: 0!important;
+}
 #canvas {
+    margin: 3% 0;
     visibility: hidden;
     display: block;
+    
 }
 #canvas h2 {
         background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a) !important;
@@ -97,6 +121,24 @@ input[type=number] {
         -webkit-animation: hue 60s infinite linear;
         color: #f35626;
     
+}
+/* To make it responsive too */
+@media (max-width: 480px){
+    h1 {
+        font-size: 3em;
+    }
+    h2 {
+        font-size: 1.6em;
+    }
+    #grid-size, #color-pick {
+        margin: 10%;
+    }
+}
+@media (max-width: 880px){
+    #select {
+        position: relative;
+        top: -50px;
+    }
 }
 
 @-webkit-keyframes hue {
