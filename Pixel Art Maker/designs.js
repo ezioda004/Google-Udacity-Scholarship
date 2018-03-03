@@ -53,6 +53,7 @@ $("#reset").on("click", function(e){
     $("#select").removeClass("btn-animate");
     $("#pixelCanvas").html("");
     $("#canvas").css("visibility", "hidden");
+    $("input[type='color']").val("black");  
     
 });
 
