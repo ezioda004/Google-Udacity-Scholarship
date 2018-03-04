@@ -2,16 +2,14 @@ $("document").ready(function(){
 
 
 //declared and initialized variables
-let width;
-let height;
 let colorPicked = $("#colorPicker").val();
 
 
 function makeGrid() { //Grid creating function
 
 // Your code goes here!
-    width = $("#inputWeight").val();
-    height = $("#inputHeight").val();
+    let width = $("#inputWeight").val();
+    let height = $("#inputHeight").val();
 
 
 
