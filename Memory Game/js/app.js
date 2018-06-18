@@ -11,8 +11,12 @@
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
+
+let currentCard = {};
+
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -25,7 +29,7 @@ function shuffle(array) {
     return array;
 }
 
-function showCard(obj){
+function showCard(obj) {
     obj.classList.add("open", "show");
 }
 
@@ -33,9 +37,36 @@ function showCard(obj){
 
 const deck = document.querySelector(".deck");
 console.log(deck);
-deck.addEventListener("click", function(e){
-    console.log(e.target);
-    showCard(e.target);
+deck.addEventListener("click", function (e) {
+
+    //check if the target is li
+    if (e.target.tagName.toLowerCase() == "li") {
+        console.log(e.target.getAttribute("id"));
+        const extractCardString = e.target.children[0].classList[1].replace(/fa-/gi, "");
+        if (Object.keys(currentCard).length == 1){
+            if (Object.keys(currentCard)[0] === extractCardString) {
+                document.getElementById(currentCard[extractCardString]).classList.add("match");
+                document.getElementById(e.target.getAttribute("id")).classList.add("match");
+                console.log("here");
+            }
+            else {
+
+            }
+            currentCard = {};
+        }
+        else {
+            currentCard[extractCardString] = e.target.getAttribute("id");
+        }
+
+        
+        
+        showCard(e.target);
+    }
+
+
+    // if (currentCard.length == 0){
+
+    // }
 
 }, true)
 
