@@ -164,7 +164,7 @@ header .active {
   border-bottom: 3px solid #9b0c02;
 }
 
-header .intro {
+header #intro {
   position: relative;
   color: white;
   height: 70%;
@@ -173,12 +173,12 @@ header .intro {
   /* Center and scale the image nicely */
 }
 
-header .intro .down {
+header #intro .down {
   position: relative;
   top: 80%;
 }
 
-header .intro .type {
+header #intro .type {
   position: relative;
   top: 40%;
   display: flex;
@@ -186,14 +186,14 @@ header .intro .type {
   flex-flow: row wrap;
 }
 
-header .intro .type h1 {
+header #intro .type h1 {
   flex: 1 1 100%;
   text-align: center;
   color: aliceblue;
   font-size: 5em;
 }
 
-header .intro .type h2 {
+header #intro .type h2 {
   align-self: center;
   text-align: center;
 }
@@ -215,8 +215,39 @@ body h1 {
 
 body #About {
   background-color: #9b0c02;
+}
+
+body #About .wrapper-top {
+  position: relative;
+  width: 100%;
+  top: -100px;
+}
+
+body #About .wrapper-top svg {
+  position: absolute;
+  top: 0;
+  height: 100px;
+  width: 100%;
+}
+
+body #About .wrapper-bottom {
+  position: relative;
+  width: 100%;
+}
+
+body #About .wrapper-bottom svg {
+  position: absolute;
+  top: 0;
+  height: 100px;
+  width: 100%;
+}
+
+body #About .container {
+  padding-bottom: 5%;
+}
+
+body #About .container h1 {
   padding-top: 5%;
-  padding-bottom: 3%;
 }
 
 body #About .container hr {
@@ -233,15 +264,21 @@ body #About .container p {
 
 body #About .container .certificates .row .col-sm-6 img {
   opacity: 1;
+  -webkit-box-shadow: -6px 17px 58px 9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -6px 17px 58px 9px rgba(0, 0, 0, 0.75);
+  box-shadow: -6px 17px 58px 9px rgba(0, 0, 0, 0.75);
 }
 
 body #About .container .certificates .row .col-sm-6:nth-of-type(2) img {
   max-height: 434px;
+  -webkit-box-shadow: -6px 17px 58px 9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -6px 17px 58px 9px rgba(0, 0, 0, 0.75);
+  box-shadow: -6px 17px 58px 9px rgba(0, 0, 0, 0.75);
 }
 
 body #skill {
   padding-top: 5%;
-  padding-bottom: 5%;
+  padding-bottom: 9%;
 }
 
 body #skill hr {
@@ -355,8 +392,12 @@ body #skill .skill-learning .row {
 }
 
 body #Projects {
-  padding: 5% 0;
+  padding-bottom: 5%;
   background: #9b0c02;
+}
+
+body #Projects h1 {
+  padding-top: 4%;
 }
 
 body #Projects hr {
@@ -382,6 +423,9 @@ body #Projects .container-fluid .row .col-lg-6 figure img {
   width: 75%;
   height: 100%;
   background: #222;
+  -webkit-box-shadow: -1px 2px 24px 5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 2px 24px 5px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 2px 24px 5px rgba(0, 0, 0, 0.75);
 }
 
 body #Projects .container-fluid .row .col-lg-6 figure .img-hover:hover {
@@ -432,6 +476,11 @@ body #Projects .container-fluid .row .col-lg-6 figure figcaption a {
   flex: 0 1 50%;
 }
 
+body #Projects .wrapper-proj-bottom {
+  z-index: 100;
+  top: 30px;
+}
+
 body .hire {
   position: relative;
   top: -45px;
@@ -461,7 +510,7 @@ body .hire .container-fluid .hire-text a {
 }
 
 body #contact {
-  padding-top: 5%;
+  padding: 5% 0;
   background: #9b0c02;
   color: whitesmoke;
 }
@@ -499,6 +548,15 @@ body #contact .container form #after-submit p {
 
 body #contact .container form input {
   margin: 2% 0;
+  -webkit-box-shadow: -1px 2px 14px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 2px 14px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 2px 14px 1px rgba(0, 0, 0, 0.75);
+}
+
+body #contact .container form textarea {
+  -webkit-box-shadow: -1px 2px 14px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 2px 14px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 2px 14px 1px rgba(0, 0, 0, 0.75);
 }
 
 body #contact .container form button {
@@ -506,7 +564,7 @@ body #contact .container form button {
 }
 
 body footer .social-links {
-  margin: 3% 0;
+  margin-bottom: 3%;
 }
 
 body footer .social-links a {
@@ -515,6 +573,14 @@ body footer .social-links a {
 
 body footer .social-links a:hover {
   color: #9b0c02;
+}
+
+body .wrapper {
+  position: relative;
+}
+
+body .wrapper svg {
+  width: 100%;
 }
 
 svg {
@@ -567,6 +633,18 @@ svg {
   body #skill .container .row .col-lg-6 .skill-current .skill-display .skill-bar {
     width: 200px;
   }
+  body #contact {
+    padding-bottom: 12% !important;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  body #skill {
+    padding-bottom: 13%;
+  }
+  body #contact {
+    padding-bottom: 15% !important;
+  }
 }
 
 @media screen and (max-width: 420px) {
@@ -580,15 +658,30 @@ svg {
   p {
     font-size: 1em !important;
   }
-  header .intro .type {
+  header #intro .type {
     position: relative;
     top: 35%;
   }
-  header .intro .type h1 {
+  header #intro .type h1 {
     font-size: 3em !important;
   }
   body #skill .container .row .col-lg-6 .skill-current .skill-display .skill-bar {
     width: 120px;
+  }
+  body #contact {
+    padding-bottom: 23% !important;
+  }
+  body #skill {
+    padding-bottom: 15%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  #contact {
+    padding-bottom: 8% !important;
+  }
+  #skill .container {
+    padding-top: 10%;
   }
 }
 
