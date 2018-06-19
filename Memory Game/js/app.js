@@ -14,7 +14,6 @@
 
 let currentCard = {};
 const deck = document.querySelector(".deck");
-
 const cards = document.querySelectorAll(".card");
 
 function shuffle(array) {
@@ -32,6 +31,11 @@ function shuffle(array) {
     return array;
 }
 
+//tracking moves made by user
+function moveCounter(){
+    let moves = document.querySelector(".moves")
+    moves.textContent = +moves.textContent + 1;
+}
 
 function showCard(obj) {
     obj.classList.add("open", "show", "animated", "flipInY");
@@ -47,6 +51,7 @@ deck.addEventListener("click", function (e) {
 
     //check if the target is li
     if (e.target.tagName.toLowerCase() == "li") {
+        
         showCard(e.target);
         console.log(e.target.getAttribute("id"));
         const extractCardString = e.target.children[0].classList[1].replace(/fa-/gi, "");
@@ -77,6 +82,7 @@ deck.addEventListener("click", function (e) {
                 }, 500);
 
             }
+            moveCounter();
 
         } else {
             currentCard[extractCardString] = e.target.getAttribute("id");
