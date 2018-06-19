@@ -13,6 +13,9 @@
 // Shuffle function from http://stackoverflow.com/a/2450976
 
 let currentCard = {};
+const deck = document.querySelector(".deck");
+
+const cards = document.querySelectorAll(".card");
 
 function shuffle(array) {
     var currentIndex = array.length,
@@ -29,6 +32,7 @@ function shuffle(array) {
     return array;
 }
 
+
 function showCard(obj) {
     obj.classList.add("open", "show", "animated", "flipInY");
 }
@@ -38,8 +42,7 @@ function removeAnimations(id1, id2) {
     document.getElementById(id1).classList.remove("animated", "flipInY", "bounce", "shake");
     document.getElementById(id2).classList.remove("animated", "flipInY", "bounce", "shake");
 }
-const deck = document.querySelector(".deck");
-console.log(deck);
+
 deck.addEventListener("click", function (e) {
 
     //check if the target is li
@@ -79,17 +82,19 @@ deck.addEventListener("click", function (e) {
             currentCard[extractCardString] = e.target.getAttribute("id");
         }
 
-        console.log(currentCard);
-
-
     }
+}, true);
 
-
-    // if (currentCard.length == 0){
-
-    // }
-
-}, true)
+//restart shuffles
+document.querySelector(".restart").addEventListener("click", function(){
+    console.log("click")
+    const newCards = shuffle(Array.from(cards));
+    console.log(newCards)
+    deck.innerHTML = "";
+    newCards.forEach(card => {
+        deck.appendChild(card);
+    });
+});
 
 /*
  * set up the event listener for a card. If a card is clicked:
