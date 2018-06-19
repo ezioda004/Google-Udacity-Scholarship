@@ -30,37 +30,58 @@ function shuffle(array) {
 }
 
 function showCard(obj) {
-    obj.classList.add("open", "show");
+    obj.classList.add("open", "show", "animated", "flipInY");
 }
 
 //Event listener on cards
-
+function removeAnimations(id1, id2) {
+    document.getElementById(id1).classList.remove("animated", "flipInY", "bounce", "shake");
+    document.getElementById(id2).classList.remove("animated", "flipInY", "bounce", "shake");
+}
 const deck = document.querySelector(".deck");
 console.log(deck);
 deck.addEventListener("click", function (e) {
 
     //check if the target is li
     if (e.target.tagName.toLowerCase() == "li") {
+        showCard(e.target);
         console.log(e.target.getAttribute("id"));
         const extractCardString = e.target.children[0].classList[1].replace(/fa-/gi, "");
-        if (Object.keys(currentCard).length == 1){
-            if (Object.keys(currentCard)[0] === extractCardString) {
-                document.getElementById(currentCard[extractCardString]).classList.add("match");
-                document.getElementById(e.target.getAttribute("id")).classList.add("match");
-                console.log("here");
-            }
-            else {
+        if (Object.keys(currentCard).length == 1) {
+            let firstCard = Object.keys(currentCard)[0];
+            if ( firstCard === extractCardString) {
+                setTimeout(() => {
+                    console.log(document.getElementById(currentCard[extractCardString]))
+                    removeAnimations(currentCard[extractCardString], e.target.getAttribute("id"));
+
+                    document.getElementById(currentCard[extractCardString]).classList.add("match", "animated", "bounce");
+                    document.getElementById(e.target.getAttribute("id")).classList.add("match", "animated", "bounce");
+                    currentCard = {};
+                }, 500);
+                console.log(document.getElementById(currentCard[extractCardString]))
+
+
+            } else {
+                removeAnimations(currentCard[firstCard], e.target.getAttribute("id"));
+                document.getElementById(currentCard[firstCard]).classList.add("wrong", "shake", "animated");
+                document.getElementById(e.target.getAttribute("id")).classList.add("wrong", "shake", "animated");
+                setTimeout(() => {
+
+                    removeAnimations(currentCard[firstCard], e.target.getAttribute("id"));
+                    document.getElementById(currentCard[firstCard]).classList.remove("show", "open", "wrong");
+                    document.getElementById(e.target.getAttribute("id")).classList.remove("show", "open", "wrong");
+                    currentCard = {};
+                }, 500);
 
             }
-            currentCard = {};
-        }
-        else {
+
+        } else {
             currentCard[extractCardString] = e.target.getAttribute("id");
         }
 
-        
-        
-        showCard(e.target);
+        console.log(currentCard);
+
+
     }
 
 
