@@ -16,6 +16,16 @@ let currentCard = {};
 const deck = document.querySelector(".deck");
 const cards = document.querySelectorAll(".card");
 
+var Game = {
+    correct: 0,
+    set correctAnswers(val) {
+        this.correct += 1;
+    },
+    get correctAnswers() {
+        return this.correct;
+    }
+}
+
 function shuffle(array) {
     var currentIndex = array.length,
         temporaryValue, randomIndex;
@@ -32,7 +42,7 @@ function shuffle(array) {
 }
 
 //tracking moves made by user
-function moveCounter(){
+function moveCounter() {
     let moves = document.querySelector(".moves")
     moves.textContent = +moves.textContent + 1;
 }
@@ -47,26 +57,40 @@ function removeAnimations(id1, id2) {
     document.getElementById(id2).classList.remove("animated", "flipInY", "bounce", "shake");
 }
 
+function hasPlayerWon() {
+
+}
+
 deck.addEventListener("click", function (e) {
 
-    //check if the target is li
-    if (e.target.tagName.toLowerCase() == "li") {
-        
+    //check if the target is li and the clicked li doesnt have match class 
+    if (e.target.tagName.toLowerCase() == "li" && ![...e.target.classList].includes("match")) {
+
         showCard(e.target);
-        console.log(e.target.getAttribute("id"));
         const extractCardString = e.target.children[0].classList[1].replace(/fa-/gi, "");
         if (Object.keys(currentCard).length == 1) {
             let firstCard = Object.keys(currentCard)[0];
-            if ( firstCard === extractCardString) {
+            if (firstCard === extractCardString) {
                 setTimeout(() => {
-                    console.log(document.getElementById(currentCard[extractCardString]))
+
                     removeAnimations(currentCard[extractCardString], e.target.getAttribute("id"));
 
                     document.getElementById(currentCard[extractCardString]).classList.add("match", "animated", "bounce");
                     document.getElementById(e.target.getAttribute("id")).classList.add("match", "animated", "bounce");
                     currentCard = {};
+
+                    setTimeout(() => {
+                        Game.correctAnswers = 1;
+                        console.log(Game.correctAnswers);
+                        if (Game.correctAnswers == 7) {
+                            console.log("won");
+                            document.querySelector("div.container").classList.add("hide");
+                            document.querySelector("section.container").classList.remove("hide");
+                        }
+                    }, 400)
+
                 }, 500);
-                console.log(document.getElementById(currentCard[extractCardString]))
+
 
 
             } else {
@@ -92,7 +116,7 @@ deck.addEventListener("click", function (e) {
 }, true);
 
 //restart shuffles
-document.querySelector(".restart").addEventListener("click", function(){
+document.querySelector(".restart").addEventListener("click", function () {
     console.log("click")
     const newCards = shuffle(Array.from(cards));
     console.log(newCards)

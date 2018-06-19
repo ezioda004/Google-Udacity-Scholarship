@@ -115,3 +115,9 @@ h1 {
 .animated {
     animation-duration: 0.7s;
 }
+
+section.container {
+}
+.hide {
+    display: none;
+}
