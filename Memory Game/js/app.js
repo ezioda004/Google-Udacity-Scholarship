@@ -43,9 +43,9 @@ function shuffle(array) {
 }
 
 //tracking moves made by user
-function moveCounter() {
-    let moves = document.querySelector(".moves")
-    moves.textContent = +moves.textContent + 1;
+function moveCounter(val) {
+    let moves = document.querySelectorAll(".moves")
+    moves.forEach(move => move.textContent = (val === undefined) ? +move.textContent + 1 : 0);
 }
 
 function showCard(obj) {
@@ -66,8 +66,7 @@ function showHideModal(val) {
     if (val === "show") {
         document.querySelector("div.container").classList.add("hide");
         document.querySelector("section.container").classList.remove("hide");
-    }
-    else {
+    } else {
         document.querySelector("div.container").classList.remove("hide");
         document.querySelector("section.container").classList.add("hide");
     }
@@ -78,7 +77,7 @@ deck.addEventListener("click", function (e) {
     //check if the target is li and the clicked li doesnt have match class 
     if (e.target.tagName.toLowerCase() == "li" && ![...e.target.classList].includes("match")) {
 
-        if (!Game.hasGameStartedYet){ //if false, start the game and get the time stamp, store it in the Game object
+        if (!Game.hasGameStartedYet) { //if false, start the game and get the time stamp, store it in the Game object
             const time1 = new Date();
             Game.relativeTime1 = [time1.getHours(), time1.getMinutes(), time1.getSeconds()];
             Game.hasGameStartedYet = true;
@@ -87,8 +86,10 @@ deck.addEventListener("click", function (e) {
         console.log(Game.relativeTime1);
 
         showCard(e.target);
+
         const extractCardString = e.target.children[0].classList[1].replace(/fa-/gi, "");
         if (Object.keys(currentCard).length == 1) {
+            moveCounter();
             let firstCard = Object.keys(currentCard)[0];
             if (firstCard === extractCardString) {
                 setTimeout(() => {
@@ -102,17 +103,18 @@ deck.addEventListener("click", function (e) {
                     setTimeout(() => {
                         Game.correctAnswers = 1;
                         console.log(Game.correctAnswers);
-                        if (Game.correctAnswers == 7) {
+                        if (Game.correctAnswers == 8) {
                             console.log("won");
                             // document.querySelector("div.container").classList.add("hide");
                             // document.querySelector("section.container").classList.remove("hide");
                             const time2 = new Date();
                             const relativeTime2 = [time2.getHours(), time2.getMinutes(), time2.getSeconds()];
-                            const totalTimeTaken = relativeTime2.reduce((accum, curr, i) =>  i !== 2 ? (accum += (curr - Game.relativeTime1[i]) * 60) && accum :  (accum += (curr - Game.relativeTime1[i])) && accum, 0)
+                            const totalTimeTaken = relativeTime2.reduce((accum, curr, i) => i !== 2 ? (accum += (curr - Game.relativeTime1[i]) * 60) && accum : (accum += (curr - Game.relativeTime1[i])) && accum, 0)
                             console.log(totalTimeTaken);
-                            document.getElementById("minutes").innerHTML = Math.floor(totalTimeTaken/60);
+                            document.getElementById("minutes").innerHTML = Math.floor(totalTimeTaken / 60);
                             document.getElementById("seconds").innerHTML = totalTimeTaken % 60;
                             showHideModal("show");
+
                         }
                     }, 400)
 
@@ -133,7 +135,7 @@ deck.addEventListener("click", function (e) {
                 }, 500);
 
             }
-            moveCounter();
+
 
         } else {
             currentCard[extractCardString] = e.target.getAttribute("id");
@@ -155,9 +157,10 @@ document.querySelectorAll(".restart").forEach((restart, index) => {
             deck.appendChild(card);
         });
 
-        document.querySelector(".moves").textContent = 0;
-        index === 0 ?  null: showHideModal("hide");
-       
+        moveCounter(0);
+        index === 0 ? null : showHideModal("hide");
+        Game.correct = 0;
+
     });
 })
 
