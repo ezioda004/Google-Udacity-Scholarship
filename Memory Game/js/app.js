@@ -23,7 +23,8 @@ let Game = {
     },
     get correctAnswers() {
         return this.correct;
-    }
+    },
+    hasGameStartedYet: false
 }
 
 function shuffle(array) {
@@ -77,6 +78,14 @@ deck.addEventListener("click", function (e) {
     //check if the target is li and the clicked li doesnt have match class 
     if (e.target.tagName.toLowerCase() == "li" && ![...e.target.classList].includes("match")) {
 
+        if (!Game.hasGameStartedYet){ //if false, start the game and get the time stamp, store it in the Game object
+            const time1 = new Date();
+            Game.relativeTime1 = [time1.getHours(), time1.getMinutes(), time1.getSeconds()];
+            Game.hasGameStartedYet = true;
+
+        }
+        console.log(Game.relativeTime1);
+
         showCard(e.target);
         const extractCardString = e.target.children[0].classList[1].replace(/fa-/gi, "");
         if (Object.keys(currentCard).length == 1) {
@@ -97,6 +106,12 @@ deck.addEventListener("click", function (e) {
                             console.log("won");
                             // document.querySelector("div.container").classList.add("hide");
                             // document.querySelector("section.container").classList.remove("hide");
+                            const time2 = new Date();
+                            const relativeTime2 = [time2.getHours(), time2.getMinutes(), time2.getSeconds()];
+                            const totalTimeTaken = relativeTime2.reduce((accum, curr, i) =>  i !== 2 ? (accum += (curr - Game.relativeTime1[i]) * 60) && accum :  (accum += (curr - Game.relativeTime1[i])) && accum, 0)
+                            console.log(totalTimeTaken);
+                            document.getElementById("minutes").innerHTML = Math.floor(totalTimeTaken/60);
+                            document.getElementById("seconds").innerHTML = totalTimeTaken % 60;
                             showHideModal("show");
                         }
                     }, 400)
