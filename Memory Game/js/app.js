@@ -15,6 +15,8 @@
 let currentCard = {};
 const deck = document.querySelector(".deck");
 const cards = document.querySelectorAll(".card");
+let moves = document.querySelectorAll(".moves");
+
 
 let Game = {
     correct: 0,
@@ -44,7 +46,7 @@ function shuffle(array) {
 
 //tracking moves made by user
 function moveCounter(val) {
-    let moves = document.querySelectorAll(".moves")
+
     moves.forEach(move => move.textContent = (val === undefined) ? +move.textContent + 1 : 0);
 }
 
@@ -72,24 +74,36 @@ function showHideModal(val) {
     }
 }
 
+function numberOfStars() {
+    const stars = document.querySelector(".stars");
+    const numberOfMoves = +moves[0].textContent;
+    if (numberOfMoves < 13){
+        //do nothing!
+    }
+    else if (numberOfMoves >= 13 && numberOfMoves <= 20) {
+        stars.children.length === 2 ? null : stars.removeChild(stars.children[0]);
+
+    } else {
+        stars.children.length === 1 ? null : stars.removeChild(stars.children[0]);
+    }
+}
+
 deck.addEventListener("click", function (e) {
 
     //check if the target is li and the clicked li doesnt have match class 
     if (e.target.tagName.toLowerCase() == "li" && ![...e.target.classList].includes("match")) {
-
         if (!Game.hasGameStartedYet) { //if false, start the game and get the time stamp, store it in the Game object
             const time1 = new Date();
             Game.relativeTime1 = [time1.getHours(), time1.getMinutes(), time1.getSeconds()];
             Game.hasGameStartedYet = true;
-
         }
-        console.log(Game.relativeTime1);
 
         showCard(e.target);
 
         const extractCardString = e.target.children[0].classList[1].replace(/fa-/gi, "");
         if (Object.keys(currentCard).length == 1) {
             moveCounter();
+            numberOfStars();
             let firstCard = Object.keys(currentCard)[0];
             if (firstCard === extractCardString) {
                 setTimeout(() => {
@@ -105,6 +119,7 @@ deck.addEventListener("click", function (e) {
                         console.log(Game.correctAnswers);
                         if (Game.correctAnswers == 8) {
                             console.log("won");
+                            const stars = document.querySelectorAll(".stars");
                             // document.querySelector("div.container").classList.add("hide");
                             // document.querySelector("section.container").classList.remove("hide");
                             const time2 = new Date();
@@ -113,6 +128,7 @@ deck.addEventListener("click", function (e) {
                             console.log(totalTimeTaken);
                             document.getElementById("minutes").innerHTML = Math.floor(totalTimeTaken / 60);
                             document.getElementById("seconds").innerHTML = totalTimeTaken % 60;
+                            stars[1].innerHTML = stars[0].children.length;
                             showHideModal("show");
 
                         }
@@ -157,8 +173,18 @@ document.querySelectorAll(".restart").forEach((restart, index) => {
             deck.appendChild(card);
         });
 
+        //adding stars back to the main page
+        const star = document.querySelector(".stars");
+        star.innerHTML = "";
+        Array(1, 2, 3).forEach(val => star.insertAdjacentHTML("afterbegin", `<li><i class="fa fa-star"></i></li>`));
+
+        //resetting the move counter
         moveCounter(0);
+
+        //hiding modal if its the second one 
         index === 0 ? null : showHideModal("hide");
+
+        //restting the correct answers count
         Game.correct = 0;
 
     });
