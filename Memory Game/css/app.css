@@ -116,8 +116,13 @@ h1 {
     animation-duration: 0.7s;
 }
 
-section.container {
+section.container .modal{
+    margin-top: 15%;
 }
 .hide {
     display: none;
+}
+
+#trophy {
+    text-align: center;
 }

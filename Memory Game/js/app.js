@@ -16,7 +16,7 @@ let currentCard = {};
 const deck = document.querySelector(".deck");
 const cards = document.querySelectorAll(".card");
 
-var Game = {
+let Game = {
     correct: 0,
     set correctAnswers(val) {
         this.correct += 1;
@@ -61,6 +61,17 @@ function hasPlayerWon() {
 
 }
 
+function showHideModal(val) {
+    if (val === "show") {
+        document.querySelector("div.container").classList.add("hide");
+        document.querySelector("section.container").classList.remove("hide");
+    }
+    else {
+        document.querySelector("div.container").classList.remove("hide");
+        document.querySelector("section.container").classList.add("hide");
+    }
+}
+
 deck.addEventListener("click", function (e) {
 
     //check if the target is li and the clicked li doesnt have match class 
@@ -84,8 +95,9 @@ deck.addEventListener("click", function (e) {
                         console.log(Game.correctAnswers);
                         if (Game.correctAnswers == 7) {
                             console.log("won");
-                            document.querySelector("div.container").classList.add("hide");
-                            document.querySelector("section.container").classList.remove("hide");
+                            // document.querySelector("div.container").classList.add("hide");
+                            // document.querySelector("section.container").classList.remove("hide");
+                            showHideModal("show");
                         }
                     }, 400)
 
@@ -116,15 +128,23 @@ deck.addEventListener("click", function (e) {
 }, true);
 
 //restart shuffles
-document.querySelector(".restart").addEventListener("click", function () {
-    console.log("click")
-    const newCards = shuffle(Array.from(cards));
-    console.log(newCards)
-    deck.innerHTML = "";
-    newCards.forEach(card => {
-        deck.appendChild(card);
+document.querySelectorAll(".restart").forEach((restart, index) => {
+    restart.addEventListener("click", function () {
+        console.log("click")
+        const newCards = shuffle(Array.from(cards));
+
+        deck.innerHTML = "";
+        newCards.forEach(card => {
+            card.classList.value = "";
+            card.classList.add("card");
+            deck.appendChild(card);
+        });
+
+        document.querySelector(".moves").textContent = 0;
+        index === 0 ?  null: showHideModal("hide");
+       
     });
-});
+})
 
 /*
  * set up the event listener for a card. If a card is clicked:
