@@ -1,7 +1,7 @@
 $(document).ready(function () {
     AOS.init({
         disable: 'mobile'
-    }); //Initating AOS
+    }); //Initating AOS, disabled for mobile
 
 
     $("a").on('click', function (event) {
@@ -27,7 +27,7 @@ $(document).ready(function () {
     });
 
 
-
+    //typed JS config
     setTimeout(function () {
         $('body').addClass('loaded');
 
@@ -62,18 +62,16 @@ $(document).ready(function () {
     }, 5000);
 
 
+    //Hamburger icons modify
     $("button").on("click", function (e) {
         e.preventDefault();
         $("button svg").toggleClass("fa-angle-double-down");
         $("button svg").toggleClass("fa-times");
-
-
     });
 
     $("button[type = 'submit']").on("click", function (e) {
         e.preventDefault();
         $("#after-submit").fadeIn(1000, function () {
-            // $(this).css("display", "block");
             setTimeout(function () {
                 $("#after-submit").fadeOut(1000);
                 $("form input").val("");
@@ -82,6 +80,8 @@ $(document).ready(function () {
         });
 
     });
+
+    //image overlay logic
     $(".img-hover").on("mouseenter", function () {
         $(this).css("opacity", "0.3");
         $(this).next().width($(this).width());
@@ -97,6 +97,7 @@ $(document).ready(function () {
         })
     });
 
+    //responsive image function
     $(window).resize(function () {
         $("figcaption").width($("img").width());
         $("figcaption").height($("img").height());
@@ -111,6 +112,8 @@ $(document).ready(function () {
     $("figcaption").height($("img").height());
 });
 
+
+//emojis loop
 let emojis = ["😂🔫", "🍕", "💻", "✋📱"];
 let i = 0;
 setInterval(function () {
