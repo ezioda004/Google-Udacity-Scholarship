@@ -18,6 +18,8 @@ const cards = document.querySelectorAll(".card");
 let moves = document.querySelectorAll(".moves");
 
 
+localStorage.getItem("highscore") ? document.querySelector("table").innerHTML = localStorage.getItem("highscore") : null;
+
 let Game = {
     correct: 0,
     set correctAnswers(val) {
@@ -26,7 +28,8 @@ let Game = {
     get correctAnswers() {
         return this.correct;
     },
-    hasGameStartedYet: false
+    hasGameStartedYet: false,
+    totalTime: 0
 }
 
 function shuffle(array) {
@@ -42,6 +45,11 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+function localScoreStorage() {
+    const highscore = document.querySelector("table").innerHTML;
+    localStorage.setItem("highscore", highscore);
 }
 
 //tracking moves made by user
@@ -77,10 +85,9 @@ function showHideModal(val) {
 function numberOfStars() {
     const stars = document.querySelector(".stars");
     const numberOfMoves = +moves[0].textContent;
-    if (numberOfMoves < 13){
+    if (numberOfMoves < 13) {
         //do nothing!
-    }
-    else if (numberOfMoves >= 13 && numberOfMoves <= 20) {
+    } else if (numberOfMoves >= 13 && numberOfMoves <= 20) {
         stars.children.length === 2 ? null : stars.removeChild(stars.children[0]);
 
     } else {
@@ -126,6 +133,7 @@ deck.addEventListener("click", function (e) {
                             const relativeTime2 = [time2.getHours(), time2.getMinutes(), time2.getSeconds()];
                             const totalTimeTaken = relativeTime2.reduce((accum, curr, i) => i !== 2 ? (accum += (curr - Game.relativeTime1[i]) * 60) && accum : (accum += (curr - Game.relativeTime1[i])) && accum, 0)
                             console.log(totalTimeTaken);
+                            Game.totalTime = totalTimeTaken;
                             document.getElementById("minutes").innerHTML = Math.floor(totalTimeTaken / 60);
                             document.getElementById("seconds").innerHTML = totalTimeTaken % 60;
                             stars[1].innerHTML = stars[0].children.length;
@@ -163,9 +171,9 @@ deck.addEventListener("click", function (e) {
 //restart shuffles
 document.querySelectorAll(".restart").forEach((restart, index) => {
     restart.addEventListener("click", function () {
-        console.log("click")
-        const newCards = shuffle(Array.from(cards));
 
+        //emptying the deck and adding shuffle cards to deck
+        const newCards = shuffle(Array.from(cards));
         deck.innerHTML = "";
         newCards.forEach(card => {
             card.classList.value = "";
@@ -187,8 +195,28 @@ document.querySelectorAll(".restart").forEach((restart, index) => {
         //restting the correct answers count
         Game.correct = 0;
 
+        //clear current card
+        currentCard = {};
+
     });
 })
+
+document.querySelector("#save").addEventListener("click", () => {
+    const name = (n) => document.querySelector(".save-dialog input").value;
+    const stars = (star) => document.querySelectorAll(".stars")[1].textContent;
+    const winner = {
+        name: name(),
+        stars: stars(),
+        time: Game.totalTime
+    }
+    document.querySelector("table").insertAdjacentHTML("beforeend", `<tr>${Array(0, 1, 2).reduce((accum, curr) => (accum += `<td>${winner[Object.keys(winner)[curr]]}</td>`) && accum, "")}</tr>`)
+    // console.log(document.querySelector("table"))
+    localScoreStorage();
+});
+
+
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:

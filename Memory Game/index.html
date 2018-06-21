@@ -13,7 +13,7 @@
 
 <body>
 
-    <div class="container">
+    <div class="container hide">
         <header>
             <h1>Matching Game</h1>
         </header>
@@ -90,7 +90,7 @@
         </ul>
     </div>
 
-    <section class="container hide">
+    <section class="container">
         <div class="modal">
             <div id="trophy">
                 <i class="fa-6x fas fa-trophy"></i>
@@ -98,14 +98,38 @@
             <h1>Congratulations! You won!!</h1>
             <p>With
                 <span class="moves">0</span> moves and
-                <span class="stars">1</span>  <i class="fa fa-star"></i></p>
+                <span class="stars">1</span>
+                <i class="fa fa-star"></i>
+            </p>
             <p>It took you
                 <span id="minutes"></span>minutes and
                 <span id="seconds"></span>seconds</p>
+
+            <div id="save-score">
+                <div class="save-dialog">
+                    <input type="text" placeholder="Scoreholder name">
+                    <button id="save">Save</button>
+                </div>
+
+            </div>
             <button class="restart">
                 Play Again?
                 <i class="fas fa-redo"></i>
             </button>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="scoreboard">
+            <table>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Stars</th>
+                    <th>Time Taken</th>
+                </tr>
+                
+            </table>
         </div>
     </section>
 

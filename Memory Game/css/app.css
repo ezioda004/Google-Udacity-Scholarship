@@ -126,3 +126,20 @@ section.container .modal{
 #trophy {
     text-align: center;
 }
+
+.modal {
+    width: 100%;
+    text-align: center;
+}
+.scoreboard {
+    width: 100%;
+    text-align: center;
+}
+table {
+    margin: 0 auto;
+    width: 600px;
+}
+td {
+    padding: 10px;
+    width: 30px;
+}
