@@ -3,6 +3,8 @@ const deck = document.querySelector(".deck");
 const cards = document.querySelectorAll(".card");
 let moves = document.querySelectorAll(".moves");
 
+let stopDisplayTimer = false;
+
 //To check if local storage has item highscore, if exists then fetch it else nothing
 localStorage.getItem("highscore") ? document.querySelector("table").innerHTML = localStorage.getItem("highscore") : null;
 
@@ -83,6 +85,32 @@ const numberOfStars = () => {
     }
 }
 
+//Display timer
+
+const displayTimer = () => {
+    let i = 0;
+    let j = 0;
+    const stop = setInterval(() => {
+        if (!stopDisplayTimer) {
+            document.querySelector("#sec").innerHTML = (i < 10 ? "0" + i : i < 60 ? i : (i = 0, j++));
+            document.querySelector("#min").innerHTML = (j < 10 ? "0" + j : j < 60 ? j : j = 0);
+            let ms = 0;
+            let x = setInterval(() => {
+                document.querySelector("#ms").innerHTML = ms;
+                ms += 1;
+                if (ms > 100) {
+                    clearInterval(x);
+                    document.querySelector("#ms").innerHTML = "00";
+                }
+            }, 10);
+            i++;
+        } else {
+            clearInterval(stop);
+        }
+
+    }, 1000);
+}
+
 //EventListener for the deck
 deck.addEventListener("click", function (e) {
 
@@ -94,6 +122,8 @@ deck.addEventListener("click", function (e) {
             const time1 = new Date();
             Game.relativeTime1 = [time1.getHours(), time1.getMinutes(), time1.getSeconds()];
             Game.hasGameStartedYet = true;
+            stopDisplayTimer = false;
+            displayTimer();
         }
 
         showCard(e.target);
@@ -123,21 +153,23 @@ deck.addEventListener("click", function (e) {
                         Game.correctAnswers = 1;
                         if (Game.correctAnswers == 8) { //Final checking for total correct answer
                             const stars = document.querySelectorAll(".stars");
-  
+
                             //Creating 2nd time object and getting time stamp to get the total time
                             const time2 = new Date();
                             const relativeTime2 = [time2.getHours(), time2.getMinutes(), time2.getSeconds()];
 
                             //To find totalTimeTaken using reduce method (basically substracting relative times), proud of coming up on my own #totallyReadable, i!==2 for seconds
                             const totalTimeTaken = relativeTime2.reduce((accum, curr, i) => i !== 2 ? (accum += (curr - Game.relativeTime1[i]) * 60) && accum : (accum += (curr - Game.relativeTime1[i])) && accum, 0);
-                            
+
                             Game.totalTime = totalTimeTaken;
-                            
+
                             //Updating the win modal
                             document.getElementById("minutes").innerHTML = Math.floor(totalTimeTaken / 60);
                             document.getElementById("seconds").innerHTML = totalTimeTaken % 60;
                             stars[1].innerHTML = stars[0].children.length;
                             showHideModal("show");
+
+                            stopDisplayTimer = true;
 
                         }
                     }, 400)
@@ -197,8 +229,16 @@ document.querySelectorAll(".restart").forEach((restart, index) => {
         //restting the correct answers count
         Game.correct = 0;
 
+        Game.hasGameStartedYet = false;
         //clear current card
         currentCard = {};
+
+        //Resetting display timer
+
+        document.querySelector("#sec").innerHTML = "00"
+        document.querySelector("#min").innerHTML = "00"
+        document.querySelector("#ms").innerHTML = "00"
+        stopDisplayTimer = true;
 
     });
 })
