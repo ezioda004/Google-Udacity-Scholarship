@@ -17,7 +17,7 @@ const deck = document.querySelector(".deck");
 const cards = document.querySelectorAll(".card");
 let moves = document.querySelectorAll(".moves");
 
-
+//To check if local storage has item highscore, if exists then fetch it else nothing
 localStorage.getItem("highscore") ? document.querySelector("table").innerHTML = localStorage.getItem("highscore") : null;
 
 let Game = {
@@ -214,7 +214,10 @@ document.querySelector("#save").addEventListener("click", () => {
     localScoreStorage();
 });
 
-
+document.querySelector(".show-score").addEventListener("click", () => {
+    console.log("click")
+    document.querySelector(".score").classList.toggle("hide");
+});
 
 
 
