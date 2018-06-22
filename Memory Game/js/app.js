@@ -1,17 +1,3 @@
-/*
- * Create a list that holds all of your cards
- */
-
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-
 let currentCard = {};
 const deck = document.querySelector(".deck");
 const cards = document.querySelectorAll(".card");
@@ -20,6 +6,7 @@ let moves = document.querySelectorAll(".moves");
 //To check if local storage has item highscore, if exists then fetch it else nothing
 localStorage.getItem("highscore") ? document.querySelector("table").innerHTML = localStorage.getItem("highscore") : null;
 
+//Game object which has info regarding the current game 
 let Game = {
     correct: 0,
     set correctAnswers(val) {
@@ -32,6 +19,7 @@ let Game = {
     totalTime: 0
 }
 
+//Shuffle function which shuffles the array passed to it, used to shuffle cards
 function shuffle(array) {
     var currentIndex = array.length,
         temporaryValue, randomIndex;
@@ -47,32 +35,31 @@ function shuffle(array) {
     return array;
 }
 
-function localScoreStorage() {
+//Storing scores as cookies
+const localScoreStorage = () => {
     const highscore = document.querySelector("table").innerHTML;
     localStorage.setItem("highscore", highscore);
 }
 
-//tracking moves made by user
-function moveCounter(val) {
-
+//Tracking moves made by user
+const moveCounter = val => {
+    //if val is not provided then increment the counter by 1 else make it 0
     moves.forEach(move => move.textContent = (val === undefined) ? +move.textContent + 1 : 0);
 }
 
-function showCard(obj) {
+//Function to show card
+const showCard = obj => {
     obj.classList.add("open", "show", "animated", "flipInY");
 }
 
-//Event listener on cards
-function removeAnimations(id1, id2) {
+//Remove/reset animations based on the ids passed
+const removeAnimations = (id1, id2) => {
     document.getElementById(id1).classList.remove("animated", "flipInY", "bounce", "shake");
     document.getElementById(id2).classList.remove("animated", "flipInY", "bounce", "shake");
 }
 
-function hasPlayerWon() {
-
-}
-
-function showHideModal(val) {
+//show hide modal based on the value passed
+const showHideModal = val => {
     if (val === "show") {
         document.querySelector("div.container").classList.add("hide");
         document.querySelector("section.container").classList.remove("hide");
@@ -82,7 +69,8 @@ function showHideModal(val) {
     }
 }
 
-function numberOfStars() {
+//Function to remove number of stars based on the moves made  
+const numberOfStars = () => {
     const stars = document.querySelector(".stars");
     const numberOfMoves = +moves[0].textContent;
     if (numberOfMoves < 13) {
@@ -95,11 +83,14 @@ function numberOfStars() {
     }
 }
 
+//EventListener for the deck
 deck.addEventListener("click", function (e) {
 
     //check if the target is li and the clicked li doesnt have match class 
     if (e.target.tagName.toLowerCase() == "li" && ![...e.target.classList].includes("match")) {
         if (!Game.hasGameStartedYet) { //if false, start the game and get the time stamp, store it in the Game object
+
+            //Create Date object and getting the time stamp
             const time1 = new Date();
             Game.relativeTime1 = [time1.getHours(), time1.getMinutes(), time1.getSeconds()];
             Game.hasGameStartedYet = true;
@@ -107,33 +98,42 @@ deck.addEventListener("click", function (e) {
 
         showCard(e.target);
 
+        //Extracting string from the class and comparing that with the previous clicked card to match 
         const extractCardString = e.target.children[0].classList[1].replace(/fa-/gi, "");
-        if (Object.keys(currentCard).length == 1) {
+
+        if (Object.keys(currentCard).length == 1) { //Checking for the currentCard length (0 means no prev card clicked 1 means a card was clicked), based on that checking with the extracted string
             moveCounter();
             numberOfStars();
             let firstCard = Object.keys(currentCard)[0];
-            if (firstCard === extractCardString) {
+            if (firstCard === extractCardString) { //Checking with the extracted string
                 setTimeout(() => {
 
+                    //Resetting animations first
                     removeAnimations(currentCard[extractCardString], e.target.getAttribute("id"));
 
+                    //Adding animations
                     document.getElementById(currentCard[extractCardString]).classList.add("match", "animated", "bounce");
                     document.getElementById(e.target.getAttribute("id")).classList.add("match", "animated", "bounce");
+
+                    //Restting the object to do the same process again
                     currentCard = {};
 
                     setTimeout(() => {
+                        //Updating the Game object
                         Game.correctAnswers = 1;
-                        console.log(Game.correctAnswers);
-                        if (Game.correctAnswers == 8) {
-                            console.log("won");
+                        if (Game.correctAnswers == 8) { //Final checking for total correct answer
                             const stars = document.querySelectorAll(".stars");
-                            // document.querySelector("div.container").classList.add("hide");
-                            // document.querySelector("section.container").classList.remove("hide");
+  
+                            //Creating 2nd time object and getting time stamp to get the total time
                             const time2 = new Date();
                             const relativeTime2 = [time2.getHours(), time2.getMinutes(), time2.getSeconds()];
-                            const totalTimeTaken = relativeTime2.reduce((accum, curr, i) => i !== 2 ? (accum += (curr - Game.relativeTime1[i]) * 60) && accum : (accum += (curr - Game.relativeTime1[i])) && accum, 0)
-                            console.log(totalTimeTaken);
+
+                            //To find totalTimeTaken using reduce method (basically substracting relative times), proud of coming up on my own #totallyReadable, i!==2 for seconds
+                            const totalTimeTaken = relativeTime2.reduce((accum, curr, i) => i !== 2 ? (accum += (curr - Game.relativeTime1[i]) * 60) && accum : (accum += (curr - Game.relativeTime1[i])) && accum, 0);
+                            
                             Game.totalTime = totalTimeTaken;
+                            
+                            //Updating the win modal
                             document.getElementById("minutes").innerHTML = Math.floor(totalTimeTaken / 60);
                             document.getElementById("seconds").innerHTML = totalTimeTaken % 60;
                             stars[1].innerHTML = stars[0].children.length;
@@ -147,6 +147,8 @@ deck.addEventListener("click", function (e) {
 
 
             } else {
+
+                //Removing animations and classes since cards dont match
                 removeAnimations(currentCard[firstCard], e.target.getAttribute("id"));
                 document.getElementById(currentCard[firstCard]).classList.add("wrong", "shake", "animated");
                 document.getElementById(e.target.getAttribute("id")).classList.add("wrong", "shake", "animated");
@@ -168,7 +170,7 @@ deck.addEventListener("click", function (e) {
     }
 }, true);
 
-//restart shuffles
+//Restart event listener, forEach cause 2 restart
 document.querySelectorAll(".restart").forEach((restart, index) => {
     restart.addEventListener("click", function () {
 
@@ -201,33 +203,24 @@ document.querySelectorAll(".restart").forEach((restart, index) => {
     });
 })
 
+//Save score event listener
 document.querySelector("#save").addEventListener("click", () => {
     const name = (n) => document.querySelector(".save-dialog input").value;
     const stars = (star) => document.querySelectorAll(".stars")[1].textContent;
+
+    //Winner saving format
     const winner = {
         name: name(),
         stars: stars(),
         time: Game.totalTime
     }
-    document.querySelector("table").insertAdjacentHTML("beforeend", `<tr>${Array(0, 1, 2).reduce((accum, curr) => (accum += `<td>${winner[Object.keys(winner)[curr]]}</td>`) && accum, "")}</tr>`)
-    // console.log(document.querySelector("table"))
+    //Another reducer to make a table with the above object
+    document.querySelector("table").insertAdjacentHTML("beforeend", `<tr>${Array(0, 1, 2).reduce((accum, curr) => (accum += `<td>${winner[Object.keys(winner)[curr]]}</td>`) && accum, "")}</tr>`);
     localScoreStorage();
 });
 
+//Simple toggler for showing scoreboard
 document.querySelector(".show-score").addEventListener("click", () => {
-    console.log("click")
-    document.querySelector(".score").classList.toggle("hide");
+    const score = document.querySelector(".score");
+    score.classList.toggle("hide");
 });
-
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
