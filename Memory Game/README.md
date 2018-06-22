@@ -2,19 +2,15 @@
 
 ## Table of Contents
 
+* [Dependencies](#Dependencies)
 * [Instructions](#instructions)
-* [Contributing](#contributing)
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Memory game is a simple memorizing game. There are 16 cards, click on any card to get started! As soon as you click the card a timer on the top right of the screen would start. It'll stop only when you finish the game or if you press the reset button.
 
-To get started, open `js/app.js` and start building out the app's functionality
+You can also store the scores after you win the game and see the previous local scores by clicking "Show Scores" button.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+## Dependencies
 
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+This project uses FontAwesome and Animate.css both are light weight CSS libraries for icons and animations respectively.
