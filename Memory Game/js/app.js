@@ -140,17 +140,20 @@ deck.addEventListener("click", function (e) {
             numberOfStars();
             let firstCard = Object.keys(currentCard)[0];
             if (firstCard === extractCardString) { //Checking with the extracted string
-                setTimeout(() => {
 
+                //Copying the object so that we can reset the currentObject before the animation end and the animations work seemlessly
+                const currentCardCopy = JSON.parse(JSON.stringify(currentCard));
+                setTimeout(() => {
+                   
                     //Resetting animations first
-                    removeAnimations(currentCard[extractCardString], e.target.getAttribute("id"));
+                    removeAnimations(currentCardCopy[extractCardString], e.target.getAttribute("id"));
 
                     //Adding animations
-                    document.getElementById(currentCard[extractCardString]).classList.add("match", "animated", "bounce");
+                    document.getElementById(currentCardCopy[extractCardString]).classList.add("match", "animated", "bounce");
                     document.getElementById(e.target.getAttribute("id")).classList.add("match", "animated", "bounce");
 
                     //Restting the object to do the same process again
-                    currentCard = {};
+                   
 
                     setTimeout(() => {
                         //Updating the Game object
@@ -179,7 +182,7 @@ deck.addEventListener("click", function (e) {
                     }, 400)
 
                 }, 300);
-
+                currentCard = {};
             } else { //else if the cards dont match
 
                 //Removing animations and classes since cards dont match
@@ -193,8 +196,8 @@ deck.addEventListener("click", function (e) {
                     document.getElementById(e.target.getAttribute("id")).classList.remove("show", "open", "wrong");
 
                     //failsafe
-
                     cards.forEach(card => card.classList.remove("show", "open", "wrong"));
+
                     currentCard = {};
                 }, 300);
 
