@@ -113,9 +113,13 @@ const displayTimer = () => {
 
 //EventListener for the deck
 deck.addEventListener("click", function (e) {
-
+    const sameCardsClicked = () => {
+        let card1 = currentCard[Object.keys(currentCard)[0]];
+        let card2 = e.target.getAttribute("id");
+        return card1 == card2;
+    }
     //check if the target is li and the clicked li doesnt have match class 
-    if (e.target.tagName.toLowerCase() == "li" && ![...e.target.classList].includes("match")) {
+    if (e.target.tagName.toLowerCase() == "li" && ![...e.target.classList].includes("match") && !sameCardsClicked()) {
         if (!Game.hasGameStartedYet) { //if false, start the game and get the time stamp, store it in the Game object
 
             //Create Date object and getting the time stamp
