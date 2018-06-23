@@ -178,11 +178,9 @@ deck.addEventListener("click", function (e) {
                         }
                     }, 400)
 
-                }, 500);
+                }, 300);
 
-
-
-            } else {
+            } else { //else if the cards dont match
 
                 //Removing animations and classes since cards dont match
                 removeAnimations(currentCard[firstCard], e.target.getAttribute("id"));
@@ -193,8 +191,12 @@ deck.addEventListener("click", function (e) {
                     removeAnimations(currentCard[firstCard], e.target.getAttribute("id"));
                     document.getElementById(currentCard[firstCard]).classList.remove("show", "open", "wrong");
                     document.getElementById(e.target.getAttribute("id")).classList.remove("show", "open", "wrong");
+
+                    //failsafe
+
+                    cards.forEach(card => card.classList.remove("show", "open", "wrong"));
                     currentCard = {};
-                }, 500);
+                }, 300);
 
             }
 
