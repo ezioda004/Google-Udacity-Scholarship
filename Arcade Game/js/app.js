@@ -1,29 +1,4 @@
 // Enemies our player must avoid
-// var Enemy = function(x, y) {
-//     // Variables applied to each of our instances go here,
-//     // we've provided one for you to get started
-
-//     // The image/sprite for our enemies, this uses
-//     // a helper we've provided to easily load images
-//     this.sprite = 'images/enemy-bug.png';
-//     this.x = x;
-//     this.y = y;
-// };
-
-// // Update the enemy's position, required method for game
-// // Parameter: dt, a time delta between ticks
-// Enemy.prototype.update = function(dt) {
-//     // You should multiply any movement by the dt parameter
-//     // which will ensure the game runs at the same speed for
-//     // all computers.
-//     this.x = this.x * dt;
-//         this.y = this.y * dt;
-// };
-
-// // Draw the enemy on the screen, required method for game
-// Enemy.prototype.render = function() {
-//     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-// };
 
 
 // The Enemy function, which initiates the Enemy by:
@@ -40,13 +15,19 @@ class Enemy {
         this.sprite = 'images/enemy-bug.png';
         this.x = x;
         this.y = y;
-        this.speed = 2;
+        this.speed = Math.floor((Math.random() * (250 - 100)) + 100);
         // console.log(this.x, this.y)
     }
     update(dt) {
         // console.log(dt);
         // console.log(this.x, this.y);
-        this.x += this.x * dt;
+        // console.log(this.x);
+        if (this.x >= 500) {
+            this.x = 1;
+        } else {
+            this.x += (dt * this.speed);
+        }
+
         // console.log(this.x, this.y);
     }
     render() {
@@ -55,17 +36,6 @@ class Enemy {
     }
 }
 
-
-// The Player function, which initiates the Player by:
-// Loading the image by setting this.sprite to the appropriate image in the image folder (use the code from the Enemy function as an example on how to do that)
-// Setting the Player initial location
-// The update method for the Player (can be similar to the one for the Enemy)
-// The render method for the Player (use the code from the render method for the Enemy)
-// The handleInput method, which should receive user input, allowedKeys (the key which was pressed) and move the player according to that input. In particular:
-// Left key should move the player to the left, right key to the right, up should move the player up and down should move the player down.
-// Recall that the player cannot move off screen (so you will need to check for that and handle appropriately).
-// If the player reaches the water the game should be reset by moving the player back to the initial location (you can write a separate reset Player method to handle that).
-// You can add your own Player methods as needed.
 
 
 class Player {
@@ -83,7 +53,28 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
     handleInput(key) {
+        if (key == "up") {
+            this.y -= 50;
+        } else if (key == "down") {
+            if (this.y >= 450) {
+                this.y = 450;
+            } else {
+                this.y += 50;
+            }
 
+        } else if (key == "right") {
+            this.x += 50;
+        }
+        if (key == "left") {
+            this.x -= 50;
+        }
+        if (this.x >= 420 || this.x <= -25) {
+            console.log("here", this.x);
+            console.log(Math.sign(this.x))
+            Math.sign(this.x) == 1 ? this.x -= 450 : this.x += 450;
+
+
+        }
     }
 }
 
