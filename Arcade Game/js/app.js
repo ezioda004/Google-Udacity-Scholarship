@@ -19,16 +19,32 @@ class Enemy {
         // console.log(this.x, this.y)
     }
     update(dt) {
-        // console.log(dt);
-        // console.log(this.x, this.y);
-        // console.log(this.x);
         if (this.x >= 500) {
             this.x = 1;
         } else {
             this.x += (dt * this.speed);
         }
-
+        this.collision();
+        
         // console.log(this.x, this.y);
+    }
+    collision(){
+        
+        // if (player.x > this.x && this.y > player.y){
+        //     console.log(player.x > this.x && this.y > player.y)
+        // }
+        // if (((this.x + 10) <= player.x) &&  ((this.x - 10) >= player.x)){
+        //     console.log("hit")
+        // }
+        // if ((player.x + 5 >= this.x && player.x - 5 <= this.x) &&(player.y + 5 >= this.y && player.y - 5 <= this.y)){
+        //     // console.log("here");
+        //     return "ok";
+        // }
+        if ((((this.x + 70) >= player.x) && ((this.x - 70) <= player.x)) && ((this.y + 30) >= player.y) && ((this.y - 50) <= player.y)){
+            console.log("collided")
+            player.x = 200;
+            player.y = 450;
+        }
     }
     render() {
         // console.log(this.x, this.y);
@@ -47,6 +63,7 @@ class Player {
     update(dt) {
         // this.x = this.x * dt;
         // this.y = this.y * dt;
+        
     }
     render() {
         // console.log(this.x, this.y)
@@ -69,8 +86,6 @@ class Player {
             this.x -= 50;
         }
         if (this.x >= 420 || this.x <= -25) {
-            console.log("here", this.x);
-            console.log(Math.sign(this.x))
             Math.sign(this.x) == 1 ? this.x -= 450 : this.x += 450;
 
 
@@ -83,8 +98,8 @@ class Player {
 // a handleInput() method.
 
 let allEnemies, player;
-let e1 = new Enemy(10, 10);
-let e2 = new Enemy(15, 40);
+let e1 = new Enemy(0, 0);
+let e2 = new Enemy(0, 200);
 let p1 = new Player();
 allEnemies = [e1, e2];
 console.log(allEnemies);
