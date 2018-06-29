@@ -16,7 +16,6 @@ class Enemy {
         this.x = x;
         this.y = y;
         this.speed = Math.floor((Math.random() * (250 - 100)) + 100);
-        // console.log(this.x, this.y)
     }
     update(dt) {
         if (this.x >= 500) {
@@ -25,29 +24,16 @@ class Enemy {
             this.x += (dt * this.speed);
         }
         this.collision();
-        
-        // console.log(this.x, this.y);
     }
-    collision(){
-        
-        // if (player.x > this.x && this.y > player.y){
-        //     console.log(player.x > this.x && this.y > player.y)
-        // }
-        // if (((this.x + 10) <= player.x) &&  ((this.x - 10) >= player.x)){
-        //     console.log("hit")
-        // }
-        // if ((player.x + 5 >= this.x && player.x - 5 <= this.x) &&(player.y + 5 >= this.y && player.y - 5 <= this.y)){
-        //     // console.log("here");
-        //     return "ok";
-        // }
-        if ((((this.x + 70) >= player.x) && ((this.x - 70) <= player.x)) && ((this.y + 30) >= player.y) && ((this.y - 50) <= player.y)){
+    collision() {
+
+        if ((((this.x + 70) >= player.x) && ((this.x - 70) <= player.x)) && ((this.y + 30) >= player.y) && ((this.y - 50) <= player.y)) {
             console.log("collided")
             player.x = 200;
             player.y = 450;
         }
     }
     render() {
-        // console.log(this.x, this.y);
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 }
@@ -61,12 +47,15 @@ class Player {
         this.y = 450;
     }
     update(dt) {
-        // this.x = this.x * dt;
-        // this.y = this.y * dt;
-        
+        if (this.y == 0) {
+            setTimeout(() => {
+                this.x = 200;
+                this.y = 450;
+            }, 50);
+        }
+
     }
     render() {
-        // console.log(this.x, this.y)
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
     handleInput(key) {
@@ -98,8 +87,8 @@ class Player {
 // a handleInput() method.
 
 let allEnemies, player;
-let e1 = new Enemy(0, 0);
-let e2 = new Enemy(0, 200);
+let e1 = new Enemy(0, 50);
+let e2 = new Enemy(0, 225);
 let p1 = new Player();
 allEnemies = [e1, e2];
 console.log(allEnemies);
