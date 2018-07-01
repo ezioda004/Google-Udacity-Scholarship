@@ -1,6 +1,29 @@
-frontend-nanodegree-arcade-game
-===============================
+# Arcade Game
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+### Contents
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+* [How to run?]()
+* [How to play?]()
+
+#### How to run?
+
+1. Clone or download the project.
+2. Navigate inside the folder and click index.html
+3. And you're done!
+
+#### How to play?
+
+* Pressing up moves the character up, pressing down moves the character down and likewise for left and right
+* The score indicates how much a player has scored yet.
+* Different gems give different points.
+  - Blue gem gives 5 points.
+  - Green gem gives 10 points.
+  - Orange gem gives 15 points.
+* Touching rock removes 30 points.
+* The next round automatically starts the player touches the water.
+  * Winning round gives 20 points.
+* Colliding with any enemies resets all the points and the game.
+* Enemies speed is random.
+* Items spawn at random nodes.
+
+*Have fun playing!*
