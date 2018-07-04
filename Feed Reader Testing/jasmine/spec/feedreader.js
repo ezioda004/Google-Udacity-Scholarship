@@ -44,8 +44,8 @@ $(function () {
          */
 
         it("have name defined", function () {
-            for (let name of allFeeds) {
-                expect(name.hasOwnProperty("url") && name.url.length !== 0).toBe(true);
+            for (let feed of allFeeds) {
+                expect(feed.hasOwnProperty("name") && feed.name.length !== 0).toBe(true);
             }
         });
 
@@ -85,9 +85,7 @@ $(function () {
         });
     });
 
-
-
-
+    
     /* TODO: Write a new test suite named "Initial Entries" */
 
     /* TODO: Write a test that ensures when the loadFeed
@@ -96,6 +94,20 @@ $(function () {
      * Remember, loadFeed() is asynchronous so this test will require
      * the use of Jasmine's beforeEach and asynchronous done() function.
      */
+
+    describe("Initial Entries", () => {
+        beforeEach(done => {
+            loadFeed(0, () => done());
+        });
+        it("should have atleast a single element", (done) => {
+            expect(document.querySelectorAll(".feed .entry").length !== 0).toBe(true);
+            done();
+        })
+    });
+
+
+
+
 
     /* TODO: Write a new test suite named "New Feed Selection" */
 
