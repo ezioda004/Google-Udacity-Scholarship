@@ -19,9 +19,6 @@ var allFeeds = [{
 }, {
     name: 'Linear Digressions',
     url: 'http://feeds.feedburner.com/udacity-linear-digressions'
-}, {
-    name: "s",
-    url: "s"
 }];
 
 /* This function starts up our application. The Google Feed
