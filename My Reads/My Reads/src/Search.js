@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import Shelfchanger from "./Shelfchanger";
 
+//Search Component which makes query to the DB
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -11,12 +12,15 @@ class Search extends Component {
       data: ""
     };
   }
+
+  //Querying the DB
   searchHandler = e => {
     this.setState({
       query: e.target.value
     });
     BooksAPI.search(e.target.value).then(data => this.setState({ data: data }));
   };
+
   render() {
     return (
       <div className="search-books">
