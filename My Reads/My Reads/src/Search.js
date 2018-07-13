@@ -72,9 +72,8 @@ class Search extends Component {
                           </select>
                         </div>
                       </div>
-                      <div className="book-title">{book.title || "ok"}</div>
+                      <div className="book-title">{book.title || ""}</div>
                       <div className="book-authors">
-                        {console.log(this.state.data)}
                         {book.authors ? book.authors[0] : ""}
                       </div>
                     </div>
