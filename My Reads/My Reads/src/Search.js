@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
+import Shelfchanger from "./Shelfchanger";
 
 class Search extends Component {
   constructor(props) {
@@ -24,14 +25,6 @@ class Search extends Component {
             Close
           </Link>
           <div className="search-books-input-wrapper">
-            {/*
-                      NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                      You can find these search terms here:
-                      https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-    
-                      However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                      you don't find a specific author or title. Every search is limited by search terms.
-                    */}
             <input
               onChange={this.searchHandler}
               value={this.state.query}
@@ -44,8 +37,8 @@ class Search extends Component {
           <ol className="books-grid">
             {typeof this.state.data === "object" &&
             !("error" in this.state.data)
-              ? this.state.data.map((book, i) => (
-                  <li key={i}>
+              ? this.state.data.map(book => (
+                  <li id={book.id} key={book.id}>
                     <div className="book">
                       <div className="book-top">
                         <div
@@ -58,19 +51,7 @@ class Search extends Component {
                             }")`
                           }}
                         />
-                        <div className="book-shelf-changer">
-                          <select>
-                            <option value="move" disabled>
-                              Move to...
-                            </option>
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
+                        <Shelfchanger />
                       </div>
                       <div className="book-title">{book.title || ""}</div>
                       <div className="book-authors">

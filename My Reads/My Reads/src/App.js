@@ -32,7 +32,6 @@ class BooksApp extends React.Component {
               <div className="open-search">
                 <Link
                   to="/search"
-                  onClick={() => this.setState({ showSearchPage: true })}
                 >
                   Add a book
                 </Link>

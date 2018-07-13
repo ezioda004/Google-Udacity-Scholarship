@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as BooksAPI from "./BooksAPI";
+import Shelfchanger from "./Shelfchanger";
 
 class Bookshelf extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Bookshelf extends Component {
   }
   render() {
     const book = this.state.allBook;
-    return Array.from(Array("Currently Reading", "Want to Read", "Read")).map(
+    return ["Currently Reading", "Want to Read", "Read"].map(
       (val, i) => (
         <div className="list-books-content" key={i}>
           <div>
@@ -30,8 +31,8 @@ class Bookshelf extends Component {
                           book.shelf.toLowerCase() ===
                           val.toLowerCase().replace(/\s/g, "")
                       )
-                      .map((book, bookIndex) => (
-                        <li key={bookIndex}>
+                      .map(book => (
+                        <li id = {book.id} key={book.id}>
                           <div className="book">
                             <div className="book-top">
                               <div
@@ -46,21 +47,7 @@ class Bookshelf extends Component {
                                   }")`
                                 }}
                               />
-                              <div className="book-shelf-changer">
-                                <select>
-                                  <option value="move" disabled>
-                                    Move to...
-                                  </option>
-                                  <option value="currentlyReading">
-                                    Currently Reading
-                                  </option>
-                                  <option value="wantToRead">
-                                    Want to Read
-                                  </option>
-                                  <option value="read">Read</option>
-                                  <option value="none">None</option>
-                                </select>
-                              </div>
+                              <Shelfchanger />
                             </div>
                             <div className="book-title">{book.title || ""}</div>
                             <div className="book-authors">
