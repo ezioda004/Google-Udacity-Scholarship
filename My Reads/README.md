@@ -26,7 +26,7 @@ After last step, Webpack should automatically open up the localhost in your defa
 
 ### Overview
 
-My reads have 3 book shelf sections -
+My reads have 3 book shelf sections:
 
 * Currently Reading
 * Want to Read
@@ -37,13 +37,14 @@ The books can also be deleted from the bookshelf by choosing "none" option.
 
 ### Search 
 
-The new books can be searched by clicking the + button on the bottom right of the screen.
-The search terms are limited and can be found here.
+The new books can be searched by clicking the ➕ button on the bottom right of the screen.
+The search terms are limited and can be found [here](https://github.com/ezioda004/Google-Udacity-Scholarship/blob/master/My%20Reads/SEARCH_TERMS.md).
+The searched books can further be added to the appropriate shelves by clicking the ⬇.
 
 ## Support
 
-Please [open an issue](https://github.com/fraction/readme-boilerplate/issues/new) for support.
+Please [open an issue](https://github.com/ezioda004/Google-Udacity-Scholarship/issues) for support.
 
 ## Contributing
 
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/fraction/readme-boilerplate/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/ezioda004/Google-Udacity-Scholarship/pulls).
