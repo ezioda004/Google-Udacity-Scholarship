@@ -3,22 +3,32 @@ import * as BooksAPI from "./BooksAPI";
 
 //Shelfchanger Component, which changes the shelf of the selected book
 class Shelfchanger extends Component {
-
   //Change Handler which handles the book change
   changeHandler = e => {
-    const bookId = e.target.parentNode.parentNode.parentNode.parentNode.getAttribute("id");
+    const book = this.props.book;
     BooksAPI.update(
       {
-        id: bookId
+        id: book.id
       },
       e.target.value
     ).then(data => data);
-    return this.props.shelfUpdateHandler && this.props.shelfUpdateHandler({ id: bookId, shelf: e.target.value });
+    return (
+      this.props.shelfUpdateHandler &&
+      this.props.shelfUpdateHandler({
+        id: book.id,
+        shelf: e.target.value,
+        bookInfo: book
+      })
+    );
   };
 
   //Removing the focus from any other options
   handleFocus = event => {
-    event.target.value = "move";
+    let defaultValue = "none";
+    this.props.booksInShelf.some(
+      book => book.id === this.props.book.id && (defaultValue = book.shelf)
+    );
+    event.target.value = defaultValue;
   };
 
   render() {

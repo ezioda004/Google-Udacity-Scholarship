@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
-import Shelfchanger from "./Shelfchanger";
-
+import Book from "./Book";
 //Search Component which makes query to the DB
 class Search extends Component {
   constructor(props) {
@@ -15,10 +14,13 @@ class Search extends Component {
 
   //Querying the DB
   searchHandler = e => {
+    const query = e.target.value;
     this.setState({
-      query: e.target.value
+      query
     });
-    BooksAPI.search(e.target.value).then(data => this.setState({ data: data }));
+    BooksAPI.search(e.target.value).then(data =>
+      this.setState({ data: query === "" ? "" : data })
+    );
   };
 
   render() {
@@ -42,27 +44,12 @@ class Search extends Component {
             {typeof this.state.data === "object" &&
             !("error" in this.state.data)
               ? this.state.data.map(book => (
-                  <li id={book.id} key={book.id}>
-                    <div className="book">
-                      <div className="book-top">
-                        <div
-                          className="book-cover"
-                          style={{
-                            width: 128,
-                            height: 193,
-                            backgroundImage: `url("${
-                              book.imageLinks ? book.imageLinks.thumbnail : ""
-                            }")`
-                          }}
-                        />
-                        <Shelfchanger />
-                      </div>
-                      <div className="book-title">{book.title || ""}</div>
-                      <div className="book-authors">
-                        {book.authors ? book.authors[0] : ""}
-                      </div>
-                    </div>
-                  </li>
+                  <Book
+                    key={book.id}
+                    shelfUpdateHandler={this.props.shelfUpdateHandler}
+                    booksInShelf={this.props.booksInShelf}
+                    book={book}
+                  />
                 ))
               : ""}
           </ol>
