@@ -1,0 +1,23 @@
+nav {
+    background: #4682cb;
+    color: white;
+    display: flex;
+    height: 50px;
+    .nav-drawer {
+        font-size: 1.5em;
+        display: flex;
+        a {
+            align-self: center;
+            margin: 0 20px;
+            cursor: pointer;
+        }
+    }
+    .heading {
+        display: flex;
+        h1 {
+            margin: 0;
+            font-size: 1.5em;
+            align-self: center;
+        }
+    }
+}
