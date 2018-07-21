@@ -1,0 +1,13 @@
+.list-view {
+    width: 300px;
+    position: absolute;
+    transform: translate(-300px, 0);
+    transition: transform 0.5s;
+    height: 100%;
+    z-index: 10;
+    background: #212121;
+}
+
+.open {
+    transform: translate(0, 0);
+}
