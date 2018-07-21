@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
+body {
+  overflow: hidden;
+  font-family: 'Merriweather', serif;
+}
 .App {
   text-align: center;
 }

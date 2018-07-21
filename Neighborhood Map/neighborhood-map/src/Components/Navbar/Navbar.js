@@ -6,7 +6,7 @@ class Navbar extends Component {
     return (
       <nav>
         <div className="nav-drawer">
-          <a className="canvas-toggler">
+          <a className="canvas-toggler" onClick = {this.props.listViewOpenHandler}>
             <i className="fas fa-bars" />
           </a>
         </div>
