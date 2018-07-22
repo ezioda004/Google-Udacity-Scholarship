@@ -11,7 +11,11 @@ class ListView extends Component {
     this.setState({
       query: e.target.value
     });
+    this.props.listFilterHandler(e.target.value);
   };
+  onClickHandler = id => {
+      console.log(id);
+  }
   render() {
     console.log(this.props);
     const list =
@@ -19,7 +23,7 @@ class ListView extends Component {
       this.props.mainState.places
         .filter(items => items.name.toLowerCase().includes(this.state.query))
         .map(val => (
-          <div className="list" role="button" key={val.id}>
+          <div onClick = {(e) => this.onClickHandler(val.id)} className="list" role="button" key={val.id}>
             {val.name}
           </div>
         ));

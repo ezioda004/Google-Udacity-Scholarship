@@ -11,13 +11,14 @@ class App extends Component {
     super(props);
     this.state = {
       shouldListViewOpen: false,
+      query: "",
       places: ""
     };
   }
   componentDidMount() {
     let qs = {
-      client_id: "XM3F34N54T41OY32LSGSNTIF2B0DWDLE3SVPXAFU4QPVNVEO",
-      client_secret: "SXKCR4F4MIJSYTOMARG3PAHFUEVAB2XVZX4G1UUXCJC1GTJG",
+      client_id: "IUCNQI1FKUOYXCCE5SOO0XY0VJ0WBZEUXJ5LN5UL5QFFLPZY",
+      client_secret: "0XLENEHRPKU51H5TJAYVGYSEIOFZUZFOA2BZTP0T0ZV20D4I",
       v: "20180323"
     };
 
@@ -44,8 +45,9 @@ class App extends Component {
               id: data.venue.id,
               name: data.venue.name,
               photo: data.venue.bestPhoto.prefix + "1024" + data.venue.bestPhoto.suffix,
-              coords: [data.venue.location.lat, data.venue.location.lng]
-              
+              coords: [data.venue.location.lat, data.venue.location.lng],
+              address: data.venue.location.address,
+              rating: data.venue.rating
             });
           });
       });
@@ -67,13 +69,20 @@ class App extends Component {
       shouldListViewOpen: !prevState.shouldListViewOpen
     }));
   };
+  
+  listFilterHandler = (query) => {
+    console.log(query);
+    this.setState({
+      query: query
+    })
+  }
   render() {
     console.log(this.state);
     return (
       <div className="App">
         <Navbar listViewOpenHandler={this.listViewOpenHandler} />
-        <ListView mainState = {this.state} />
-        <Map places = {this.state.places}/>
+        <ListView mainState = {this.state} listFilterHandler = {this.listFilterHandler}/>
+        <Map places = {this.state.places} query = {this.state.query}/>
       </div>
     );
   }

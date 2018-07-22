@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Marker } from "react-google-maps";
+import { Marker, InfoWindow } from "react-google-maps";
 
 class MarkerComponent extends Component {
   constructor(props) {
@@ -10,6 +10,15 @@ class MarkerComponent extends Component {
   }
   onClickHandler(id) {
     this.animateMarkerBounce(id);
+    const marker = this.state.places.map(place => {
+      if (place.id === id) {
+        place.isOpen = !place.isOpen;
+      }
+      return place;
+    });
+    this.setState(() => {
+      return { places: marker };
+    });
   }
   animateMarkerBounce = id => {
     const marker = this.state.places.map(
@@ -41,17 +50,34 @@ class MarkerComponent extends Component {
     });
   }
   render() {
-    console.log(this.props.places);
     const place =
-      this.props.places &&
-      this.props.places.map(place => (
-        <Marker
-          key={place.id}
-          position={{ lat: place.coords[0], lng: place.coords[1] }}
-          animation={place.animation}
-          onClick={e => this.onClickHandler(place.id)}
-        />
-      ));
+      this.state.places &&
+      this.state.places
+        .filter(place => place.name.toLowerCase().includes(this.props.query))
+        .map(place => (
+          <Marker
+            key={place.id}
+            position={{ lat: place.coords[0], lng: place.coords[1] }}
+            animation={place.animation}
+            onClick={e => this.onClickHandler(place.id)}
+          >
+            {place.isOpen && (
+              <InfoWindow onCloseClick={e => this.onClickHandler(place.id)}>
+                <div>
+                  <div>{place.rating}/10</div>
+                  <img
+                    style={{ width: "150px", height: "100px" }}
+                    src={place.photo}
+                  />
+                  <div>
+                    <h4 style={{ margin: "5px" }}>{place.name}</h4>
+                  </div>
+                  <div>{place.address}</div>
+                </div>
+              </InfoWindow>
+            )}
+          </Marker>
+        ));
     return <div>{place}</div>;
   }
 }
