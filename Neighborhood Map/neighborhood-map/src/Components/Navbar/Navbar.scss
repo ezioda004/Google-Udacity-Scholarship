@@ -6,9 +6,10 @@ nav {
     .nav-drawer {
         font-size: 1.5em;
         display: flex;
+        width: 70px;
         a {
             align-self: center;
-            margin: 0 20px;
+            margin: 0 25px;
             cursor: pointer;
         }
     }
