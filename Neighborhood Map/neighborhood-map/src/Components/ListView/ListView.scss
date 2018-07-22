@@ -18,11 +18,15 @@
     }
     .list-render {
         text-align: left;
-        color: whitesmoke;
+        color: rgba(255, 255, 255, 0.75);
         
-        div {
-            margin: 12px 0;
-            padding-left: 20px;
+        .list {
+            padding: 10px 30px;
+        }
+        .list:hover {
+            background: #1c262f;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 1);
         }
        
     }

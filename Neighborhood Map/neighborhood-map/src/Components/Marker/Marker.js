@@ -1,42 +1,58 @@
 import React, { Component } from "react";
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker
-} from "react-google-maps";
+import { Marker } from "react-google-maps";
 
 class MarkerComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      animation: window.google.maps.Animation.DROP
+      places: ""
     };
   }
-  onClickHandler = () => {
-    this.animateMarkerBounce();
-  };
-  animateMarkerBounce = () => {
-    this.setState(() => ({ animation: 1 }));
+  onClickHandler(id) {
+    this.animateMarkerBounce(id);
+  }
+  animateMarkerBounce = id => {
+    const marker = this.state.places.map(
+      place => (place.id === id ? (place.animation = 1) && place : place)
+    );
+    this.setState(() => {
+      return { places: marker };
+    });
     setTimeout(() => {
-      this.setState(() => ({ animation: 0 }));
+      this.state.places.map(
+        place => (place.id === id ? (place.animation = 0) && place : place)
+      );
+      this.setState(() => {
+        return { places: marker };
+      });
     }, 400);
   };
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (nextProps.places) {
+      this.setState({
+        places: nextProps.places
+      });
+    }
+  }
+  componentDidMount() {
+    this.setState({
+      places: this.props.places
+    });
+  }
   render() {
-    return (
-      <div>
+    console.log(this.props.places);
+    const place =
+      this.props.places &&
+      this.props.places.map(place => (
         <Marker
-          position={{ lat: 40.756795, lng: -73.954298 }}
-          animation={this.state.animation}
-          onClick={this.onClickHandler}
+          key={place.id}
+          position={{ lat: place.coords[0], lng: place.coords[1] }}
+          animation={place.animation}
+          onClick={e => this.onClickHandler(place.id)}
         />
-        <Marker
-          position={{ lat: 40.856795, lng: -73.854298 }}
-          animation={this.state.animation}
-          onClick={this.onClickHandler}
-        />
-      </div>
-    );
+      ));
+    return <div>{place}</div>;
   }
 }
 

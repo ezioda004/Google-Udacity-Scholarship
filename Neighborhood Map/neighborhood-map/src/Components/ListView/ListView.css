@@ -27,12 +27,17 @@
 
 .list-view .list-render {
   text-align: left;
-  color: whitesmoke;
+  color: rgba(255, 255, 255, 0.75);
 }
 
-.list-view .list-render div {
-  margin: 12px 0;
-  padding-left: 20px;
+.list-view .list-render .list {
+  padding: 10px 30px;
+}
+
+.list-view .list-render .list:hover {
+  background: #1c262f;
+  cursor: pointer;
+  color: white;
 }
 
 .open {

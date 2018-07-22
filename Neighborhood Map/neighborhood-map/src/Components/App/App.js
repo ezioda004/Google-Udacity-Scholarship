@@ -10,28 +10,57 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      shouldListViewOpen: false
+      shouldListViewOpen: false,
+      places: ""
     };
   }
   componentDidMount() {
     let qs = {
-      client_id: "4G4VGFRZFSP44HD0UYCBIBECDISZWAU0BHZC321A44HTPP5L",
-      client_secret: "VQCDP2XYNSGPXU2RO0JELB4TB3XBIMWIQRNMJR2AERXKVI0Z",
-      ll: "40.7243,-74.0018",
+      client_id: "XM3F34N54T41OY32LSGSNTIF2B0DWDLE3SVPXAFU4QPVNVEO",
+      client_secret: "SXKCR4F4MIJSYTOMARG3PAHFUEVAB2XVZX4G1UUXCJC1GTJG",
       v: "20180323"
-  }
- 
-    console.log(JSONData);
-    axios
-      .get(`https://api.foursquare.com/v2/venues/4ba51d9df964a52042df38e3`, {
-        params: {
-          client_id: "4G4VGFRZFSP44HD0UYCBIBECDISZWAU0BHZC321A44HTPP5L",
-          client_secret: "VQCDP2XYNSGPXU2RO0JELB4TB3XBIMWIQRNMJR2AERXKVI0Z",
-          ll: "40.7040764,-73.84591019999999",
-          v: "20180323"
+    };
 
-        },
-      }).then(res => console.log(res.data.response));
+    let promise = [];
+     async function asyncForEach(array, callback) {
+     
+      for (let num of array) {
+
+        await promise.push(callback(num));
+      }
+    }
+    const start = async () => {
+      let dataToState = [];
+      await asyncForEach(JSONData.id,  async id => {
+        await axios
+          .get(`https://api.foursquare.com/v2/venues/${id}`, {
+            params: qs
+          })
+          .then(res => res.data.response)
+          .catch(err => console.log(err))
+          .then(data => {
+            console.log(data)
+            dataToState.push({
+              id: data.venue.id,
+              name: data.venue.name,
+              photo: data.venue.bestPhoto.prefix + "1024" + data.venue.bestPhoto.suffix,
+              coords: [data.venue.location.lat, data.venue.location.lng]
+              
+            });
+          });
+      });
+      console.log("here")
+      await Promise.all(promise).then((res) => {
+        console.log("done", res)
+        this.setState({
+          places: dataToState
+        })
+      });
+      
+    };
+    start();
+
+   
   }
   listViewOpenHandler = () => {
     this.setState(prevState => ({
@@ -39,11 +68,12 @@ class App extends Component {
     }));
   };
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         <Navbar listViewOpenHandler={this.listViewOpenHandler} />
-        <ListView shouldListViewOpen={this.state.shouldListViewOpen} />
-        <Map />
+        <ListView mainState = {this.state} />
+        <Map places = {this.state.places}/>
       </div>
     );
   }

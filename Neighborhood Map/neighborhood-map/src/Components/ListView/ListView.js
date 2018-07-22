@@ -13,9 +13,21 @@ class ListView extends Component {
     });
   };
   render() {
+    console.log(this.props);
+    const list =
+      this.props.mainState.places &&
+      this.props.mainState.places
+        .filter(items => items.name.toLowerCase().includes(this.state.query))
+        .map(val => (
+          <div className="list" role="button" key={val.id}>
+            {val.name}
+          </div>
+        ));
     return (
       <div
-        className={`list-view ${this.props.shouldListViewOpen ? `open` : ``}`}
+        className={`list-view ${
+          this.props.mainState.shouldListViewOpen ? `open` : ``
+        }`}
       >
         <div className="location-search">
           <input
@@ -25,10 +37,7 @@ class ListView extends Component {
             onChange={this.inputChangeHandler}
           />
         </div>
-        <div className="list-render">
-          <div>Hello world</div>
-          <div> some tex </div>
-        </div>
+        <div className="list-render">{list}</div>
       </div>
     );
   }
