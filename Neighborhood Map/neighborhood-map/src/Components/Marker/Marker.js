@@ -37,10 +37,22 @@ class MarkerComponent extends Component {
     }, 400);
   };
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.places) {
       this.setState({
         places: nextProps.places
+      });
+    }
+    if (nextProps.idClicked) {
+      this.setState(prevState => {
+        const updatedPlace = prevState.places.map(
+          place =>
+            place.id === nextProps.idClicked
+              ? (place.isOpen = true) && place
+              : place
+        );
+        return {
+          places: updatedPlace
+        };
       });
     }
   }
@@ -67,7 +79,7 @@ class MarkerComponent extends Component {
                   <div>{place.rating}/10</div>
                   <img
                     style={{ width: "150px", height: "100px" }}
-                    src={place.photo}
+                    src={place.photo} alt = {place.name}
                   />
                   <div>
                     <h4 style={{ margin: "5px" }}>{place.name}</h4>

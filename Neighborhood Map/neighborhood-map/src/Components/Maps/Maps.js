@@ -2,18 +2,20 @@ import React, { Component } from "react";
 import { withGoogleMap, GoogleMap } from "react-google-maps";
 import MarkerComponent from "../Marker/Marker";
 
-
-
 const GoogleMapExample = withGoogleMap(props => {
-    return (
+  return (
     <GoogleMap
       defaultZoom={11}
       defaultCenter={{ lat: 40.686795, lng: -73.954298 }}
     >
-      <MarkerComponent places={props.state && props.state.places} query={props.query} />
+      <MarkerComponent
+        places={props.state && props.state.places}
+        query={props.query}
+        idClicked={props.idClicked}
+      />
     </GoogleMap>
-  )});
-
+  );
+});
 
 class Map extends Component {
   constructor(props) {
@@ -41,10 +43,10 @@ class Map extends Component {
       <div style={{ height: "90%" }}>
         <GoogleMapExample
           containerElement={<div style={{ height: `100%`, width: "100%" }} />}
-          mapElement={<div style={{ height: `100%` }} 
-          />}
-          state = {this.state}
-          query = {this.props.query}
+          mapElement={<div style={{ height: `100%` }} />}
+          state={this.state}
+          query={this.props.query}
+          idClicked={this.props.idClicked}
         />
       </div>
     );

@@ -12,27 +12,26 @@ class App extends Component {
     this.state = {
       shouldListViewOpen: false,
       query: "",
-      places: ""
+      places: "",
+      idClicked: ""
     };
   }
   componentDidMount() {
     let qs = {
-      client_id: "IUCNQI1FKUOYXCCE5SOO0XY0VJ0WBZEUXJ5LN5UL5QFFLPZY",
-      client_secret: "0XLENEHRPKU51H5TJAYVGYSEIOFZUZFOA2BZTP0T0ZV20D4I",
+      client_id: "4BUO0BTOATECTASVBVUHQHRYNRXPDE30PZK3J5W5JGQJQ0S0",
+      client_secret: "5XHCSNGSV10BRPITBVXALG3EUGH4VCTIPOMU1JXHSRYQCEOT",
       v: "20180323"
     };
 
     let promise = [];
-     async function asyncForEach(array, callback) {
-     
+    async function asyncForEach(array, callback) {
       for (let num of array) {
-
         await promise.push(callback(num));
       }
     }
     const start = async () => {
       let dataToState = [];
-      await asyncForEach(JSONData.id,  async id => {
+      await asyncForEach(JSONData.id, async id => {
         await axios
           .get(`https://api.foursquare.com/v2/venues/${id}`, {
             params: qs
@@ -40,49 +39,58 @@ class App extends Component {
           .then(res => res.data.response)
           .catch(err => console.log(err))
           .then(data => {
-            console.log(data)
             dataToState.push({
               id: data.venue.id,
               name: data.venue.name,
-              photo: data.venue.bestPhoto.prefix + "1024" + data.venue.bestPhoto.suffix,
+              photo:
+                data.venue.bestPhoto.prefix +
+                "1024" +
+                data.venue.bestPhoto.suffix,
               coords: [data.venue.location.lat, data.venue.location.lng],
               address: data.venue.location.address,
               rating: data.venue.rating
             });
           });
       });
-      console.log("here")
-      await Promise.all(promise).then((res) => {
-        console.log("done", res)
+      await Promise.all(promise).then(res => {
         this.setState({
           places: dataToState
-        })
+        });
       });
-      
     };
     start();
-
-   
   }
   listViewOpenHandler = () => {
     this.setState(prevState => ({
       shouldListViewOpen: !prevState.shouldListViewOpen
     }));
   };
-  
-  listFilterHandler = (query) => {
+
+  listFilterHandler = query => {
     console.log(query);
     this.setState({
       query: query
-    })
-  }
+    });
+  };
+  listItemClickedHandler = id => {
+    this.setState({
+      idClicked: id
+    });
+  };
   render() {
-    console.log(this.state);
     return (
       <div className="App">
         <Navbar listViewOpenHandler={this.listViewOpenHandler} />
-        <ListView mainState = {this.state} listFilterHandler = {this.listFilterHandler}/>
-        <Map places = {this.state.places} query = {this.state.query}/>
+        <ListView
+          mainState={this.state}
+          listFilterHandler={this.listFilterHandler}
+          listItemClickedHandler={this.listItemClickedHandler}
+        />
+        <Map
+          places={this.state.places}
+          query={this.state.query}
+          idClicked={this.state.idClicked}
+        />
       </div>
     );
   }

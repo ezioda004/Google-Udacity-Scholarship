@@ -14,16 +14,20 @@ class ListView extends Component {
     this.props.listFilterHandler(e.target.value);
   };
   onClickHandler = id => {
-      console.log(id);
-  }
+    this.props.listItemClickedHandler(id);
+  };
   render() {
-    console.log(this.props);
     const list =
       this.props.mainState.places &&
       this.props.mainState.places
         .filter(items => items.name.toLowerCase().includes(this.state.query))
         .map(val => (
-          <div onClick = {(e) => this.onClickHandler(val.id)} className="list" role="button" key={val.id}>
+          <div
+            onClick={e => this.onClickHandler(val.id)}
+            className="list"
+            role="button"
+            key={val.id}
+          >
             {val.name}
           </div>
         ));
