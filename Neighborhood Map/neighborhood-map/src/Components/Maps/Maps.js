@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { withGoogleMap, GoogleMap } from "react-google-maps";
 import MarkerComponent from "../Marker/Marker";
+import mapStyles from "../../data/mapStyles.json";
+
+
 
 const GoogleMapExample = withGoogleMap(props => {
   return (
     <GoogleMap
       defaultZoom={11}
       defaultCenter={{ lat: 40.686795, lng: -73.954298 }}
+      tabIndex = {-1}
+      defaultOptions = {{styles: mapStyles}}
     >
       <MarkerComponent
         places={props.state && props.state.places}
@@ -37,6 +42,9 @@ class Map extends Component {
         places: newState
       });
     }
+  }
+  shouldComponentUpdate(nextProps){
+      return JSON.stringify(nextProps) === JSON.stringify(this.props) ? false : true;
   }
   render() {
     return (

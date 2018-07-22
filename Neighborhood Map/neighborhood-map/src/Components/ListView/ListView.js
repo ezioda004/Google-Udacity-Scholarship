@@ -23,6 +23,7 @@ class ListView extends Component {
         .filter(items => items.name.toLowerCase().includes(this.state.query))
         .map(val => (
           <div
+            tabIndex = {0}
             onClick={e => this.onClickHandler(val.id)}
             className="list"
             role="button"
@@ -39,6 +40,7 @@ class ListView extends Component {
       >
         <div className="location-search">
           <input
+            tabIndex = {0}
             type="text"
             placeholder="Search Location"
             value={this.state.query}

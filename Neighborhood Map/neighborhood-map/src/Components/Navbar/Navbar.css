@@ -21,6 +21,19 @@ nav .nav-drawer a {
       align-self: center;
   margin: 0 25px;
   cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+nav .nav-drawer a:hover {
+  background: #444;
+}
+
+nav .nav-drawer a:focus {
+  outline: 0;
+  background: darkslategrey;
 }
 
 nav .heading {

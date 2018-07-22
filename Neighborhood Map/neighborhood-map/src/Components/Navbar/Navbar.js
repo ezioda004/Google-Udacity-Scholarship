@@ -8,17 +8,24 @@ class Navbar extends Component {
       isOpen: false
     };
   }
-  onClickHandler = () => {
-    this.setState(prevState => ({
-      isOpen: !prevState.isOpen
-    }));
-    this.props.listViewOpenHandler();
+  onClickHandler = e => {
+    if (e.key === "Enter" || e.type === "click") {
+      this.setState(prevState => ({
+        isOpen: !prevState.isOpen
+      }));
+      this.props.listViewOpenHandler();
+    }
   };
   render() {
     return (
       <nav>
         <div className="nav-drawer">
-          <a className="canvas-toggler" onClick={this.onClickHandler}>
+          <a
+            className="canvas-toggler"
+            onKeyPress={this.onClickHandler}
+            onClick={this.onClickHandler}
+            tabIndex={0}
+          >
             <i
               className={`fas ${this.state.isOpen ? `fa-times` : `fa-bars`}`}
             />

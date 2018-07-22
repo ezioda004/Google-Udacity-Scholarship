@@ -34,10 +34,11 @@
   padding: 10px 30px;
 }
 
-.list-view .list-render .list:hover {
+.list-view .list-render .list:hover, .list-view .list-render .list:focus {
   background: #1c262f;
   cursor: pointer;
   color: white;
+  outline: 0;
 }
 
 .open {

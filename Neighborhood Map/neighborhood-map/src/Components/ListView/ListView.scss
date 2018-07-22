@@ -23,10 +23,11 @@
         .list {
             padding: 10px 30px;
         }
-        .list:hover {
+        .list:hover, .list:focus {
             background: #1c262f;
             cursor: pointer;
             color: rgba(255, 255, 255, 1);
+            outline: 0;
         }
        
     }

@@ -18,8 +18,8 @@ class App extends Component {
   }
   componentDidMount() {
     let qs = {
-      client_id: "4BUO0BTOATECTASVBVUHQHRYNRXPDE30PZK3J5W5JGQJQ0S0",
-      client_secret: "5XHCSNGSV10BRPITBVXALG3EUGH4VCTIPOMU1JXHSRYQCEOT",
+      client_id: "JFWFZANYQESYRSMPBYPF0K1LYRPOBQIDGS0MXHDG1JJES1YM",
+      client_secret: "YXB5I2W3TVNDZ5KZPXFBAXRFJ4EMIQW1DLLQAW0KFJ3EP32S",
       v: "20180323"
     };
 
@@ -67,7 +67,6 @@ class App extends Component {
   };
 
   listFilterHandler = query => {
-    console.log(query);
     this.setState({
       query: query
     });

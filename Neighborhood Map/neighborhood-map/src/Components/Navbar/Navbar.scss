@@ -11,6 +11,16 @@ nav {
             align-self: center;
             margin: 0 25px;
             cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        a:hover {
+            background: #444;
+        }
+        a:focus {
+            outline: 0;
+            background: darkslategrey;
         }
     }
     .heading {

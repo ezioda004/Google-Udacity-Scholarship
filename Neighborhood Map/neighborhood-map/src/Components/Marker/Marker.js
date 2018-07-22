@@ -47,7 +47,7 @@ class MarkerComponent extends Component {
         const updatedPlace = prevState.places.map(
           place =>
             place.id === nextProps.idClicked
-              ? (place.isOpen = true) && place
+              ? (place.isOpen = !place.isOpen) && place
               : place
         );
         return {
