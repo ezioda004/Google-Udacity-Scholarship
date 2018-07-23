@@ -19,12 +19,12 @@
             position: absolute;
             padding-left: 30px;
             transition: all 0.5s;
-            top: 25px;
+            top: 30px;
             font-size: 1.1em;
         }
         input:focus~label{
             color: white;
-            transform: translateY(-25px);
+            transform: translateY(-28px);
             font-size: 0.75em;
         }
     }

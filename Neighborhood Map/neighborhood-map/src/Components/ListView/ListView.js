@@ -13,7 +13,7 @@ class ListView extends Component {
   //on input change sending the data to the main state and updating local state
   inputChangeHandler = e => {
     this.setState({
-      query: e.target.value
+      query: e.target.value.toLowerCase()
     });
     this.props.listFilterHandler(e.target.value);
   };

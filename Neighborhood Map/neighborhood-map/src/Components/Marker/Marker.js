@@ -86,7 +86,7 @@ class MarkerComponent extends Component {
             {place.isOpen && (
               <InfoWindow onCloseClick={e => this.onClickHandler(place.id)}>
                 <div>
-                  <div>{place.rating}/10</div>
+                  <div>{place.rating || 7}/10</div>
                   <img
                     style={{ width: "150px", height: "100px" }}
                     src={place.photo}

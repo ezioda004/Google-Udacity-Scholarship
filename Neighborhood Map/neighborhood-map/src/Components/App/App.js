@@ -22,8 +22,8 @@ class App extends Component {
   //AJAX calls are made here
   componentDidMount() {
     let qs = {
-      client_id: "FQEO25RUEMFM35MIDW50VRL14I0VQWHCBN3KZH5BS4DY4FOP",
-      client_secret: "VW34HGQWPJW1ZOE0SF02TTAGKJDMGOFQCMHWSNDCZDSZ554P",
+      client_id: "S2RTLNVMERJSF3F31QQXUBLVRS5UPRFOUVHAU3PIIYBY1PBZ",
+      client_secret: "2Z44VR25J2QKXILXRK3DGDO5L5ZIUV5ILAVVNIEPGTZEHQAU",
       v: "20180323"
     };
 
@@ -42,7 +42,12 @@ class App extends Component {
             params: qs
           })
           .then(res => res.data.response)
-          .catch(err => new Error(err))
+          .catch(err => {
+            new Error(console.log(err))
+            if (err.toString().includes(429)){
+              console.log("FourSquare API quota has been exceeded.")
+            }
+          })
           .then(data => {
             dataToState.push({
               id: data.venue.id,
@@ -55,7 +60,7 @@ class App extends Component {
               address: data.venue.location.address,
               rating: data.venue.rating
             });
-          }).catch(err => new Error(err));
+          }).catch(err => new Error(console.log(err)));
       });
       await Promise.all(promise).then(res => {
         this.setState({

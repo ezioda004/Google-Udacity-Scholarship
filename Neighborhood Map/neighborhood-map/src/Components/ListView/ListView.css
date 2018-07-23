@@ -31,14 +31,14 @@
   padding-left: 30px;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
-  top: 25px;
+  top: 30px;
   font-size: 1.1em;
 }
 
 .list-view .location-search input:focus ~ label {
   color: white;
-  -webkit-transform: translateY(-25px);
-          transform: translateY(-25px);
+  -webkit-transform: translateY(-28px);
+          transform: translateY(-28px);
   font-size: 0.75em;
 }
 
