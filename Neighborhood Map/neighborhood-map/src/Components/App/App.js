@@ -6,6 +6,8 @@ import ListView from "../ListView/ListView";
 import "./App.css";
 import JSONData from "../../data/places.json";
 
+//Main component 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,13 +18,16 @@ class App extends Component {
       idClicked: ""
     };
   }
+
+  //AJAX calls are made here
   componentDidMount() {
     let qs = {
-      client_id: "JFWFZANYQESYRSMPBYPF0K1LYRPOBQIDGS0MXHDG1JJES1YM",
-      client_secret: "YXB5I2W3TVNDZ5KZPXFBAXRFJ4EMIQW1DLLQAW0KFJ3EP32S",
+      client_id: "FQEO25RUEMFM35MIDW50VRL14I0VQWHCBN3KZH5BS4DY4FOP",
+      client_secret: "VW34HGQWPJW1ZOE0SF02TTAGKJDMGOFQCMHWSNDCZDSZ554P",
       v: "20180323"
     };
 
+    //Using async/wait and promises to make sure all data is recieved before setState()
     let promise = [];
     async function asyncForEach(array, callback) {
       for (let num of array) {
@@ -60,22 +65,28 @@ class App extends Component {
     };
     start();
   }
+
+  //Method to handle when hamburger is clicked
   listViewOpenHandler = () => {
     this.setState(prevState => ({
       shouldListViewOpen: !prevState.shouldListViewOpen
     }));
   };
 
+  //Saving the query typed in the state
   listFilterHandler = query => {
     this.setState({
       query: query
     });
   };
+
+  //Saving the id clicked in the list
   listItemClickedHandler = id => {
     this.setState({
       idClicked: id
     });
   };
+
   render() {
     return (
       <div className="App">

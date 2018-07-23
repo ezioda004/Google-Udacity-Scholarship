@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Navbar.css";
 
+//Navbar Component
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -8,6 +9,8 @@ class Navbar extends Component {
       isOpen: false
     };
   }
+
+  //Click and enter key handler
   onClickHandler = e => {
     if (e.key === "Enter" || e.type === "click") {
       this.setState(prevState => ({
@@ -25,6 +28,8 @@ class Navbar extends Component {
             onKeyPress={this.onClickHandler}
             onClick={this.onClickHandler}
             tabIndex={0}
+            type="button"
+            aria-label="Menu"
           >
             <i
               className={`fas ${this.state.isOpen ? `fa-times` : `fa-bars`}`}

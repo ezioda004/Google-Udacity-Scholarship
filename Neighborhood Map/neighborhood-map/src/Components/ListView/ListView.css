@@ -16,16 +16,34 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .list-view .location-search input {
   width: 100%;
-  height: 1.75em;
+  height: 2em;
   padding-left: 20px;
+  font-size: 1.1em;
+}
+
+.list-view .location-search label {
+  position: absolute;
+  padding-left: 30px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  top: 25px;
+  font-size: 1.1em;
+}
+
+.list-view .location-search input:focus ~ label {
+  color: white;
+  -webkit-transform: translateY(-25px);
+          transform: translateY(-25px);
+  font-size: 0.75em;
 }
 
 .list-view .list-render {
+  margin-top: 20px;
   text-align: left;
   color: rgba(255, 255, 255, 0.75);
 }
@@ -34,15 +52,29 @@
   padding: 10px 30px;
 }
 
-.list-view .list-render .list:hover, .list-view .list-render .list:focus {
+.list-view .list-render .list:hover,
+.list-view .list-render .list:focus {
   background: #1c262f;
   cursor: pointer;
   color: white;
   outline: 0;
 }
 
+.list-view .foursquare {
+  position: absolute;
+  bottom: 10%;
+  background: white;
+  width: 100%;
+}
+
 .open {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);
+}
+
+@media screen and (max-width: 480px) {
+  .list-view {
+    width: 220px;
+  }
 }
 /*# sourceMappingURL=ListView.css.map */

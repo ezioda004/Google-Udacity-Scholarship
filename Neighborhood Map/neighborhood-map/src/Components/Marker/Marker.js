@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Marker, InfoWindow } from "react-google-maps";
 
+//Marker Component that shows Marker and Infowindow
 class MarkerComponent extends Component {
   constructor(props) {
     super(props);
@@ -8,6 +9,8 @@ class MarkerComponent extends Component {
       places: ""
     };
   }
+
+  //On click animating the marker as well as changing the state of the indivual place
   onClickHandler(id) {
     this.animateMarkerBounce(id);
     const marker = this.state.places.map(place => {
@@ -20,6 +23,8 @@ class MarkerComponent extends Component {
       return { places: marker };
     });
   }
+
+  //Animation, which updates the state twice
   animateMarkerBounce = id => {
     const marker = this.state.places.map(
       place => (place.id === id ? (place.animation = 1) && place : place)
@@ -36,6 +41,8 @@ class MarkerComponent extends Component {
       });
     }, 400);
   };
+
+  //Updating the state appropriately when new places or idClicked is recieved
   componentWillReceiveProps(nextProps) {
     if (nextProps.places) {
       this.setState({
@@ -56,12 +63,15 @@ class MarkerComponent extends Component {
       });
     }
   }
+
+  //Setting up the local state
   componentDidMount() {
     this.setState({
       places: this.props.places
     });
   }
   render() {
+    //Making a place list as well as filtering with any query passed
     const place =
       this.state.places &&
       this.state.places
@@ -79,7 +89,8 @@ class MarkerComponent extends Component {
                   <div>{place.rating}/10</div>
                   <img
                     style={{ width: "150px", height: "100px" }}
-                    src={place.photo} alt = {place.name}
+                    src={place.photo}
+                    alt={place.name}
                   />
                   <div>
                     <h4 style={{ margin: "5px" }}>{place.name}</h4>

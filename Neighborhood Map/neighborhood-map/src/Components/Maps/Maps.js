@@ -3,15 +3,13 @@ import { withGoogleMap, GoogleMap } from "react-google-maps";
 import MarkerComponent from "../Marker/Marker";
 import mapStyles from "../../data/mapStyles.json";
 
-
-
+//Initializing the map outside the component so it doesnt rerender
 const GoogleMapExample = withGoogleMap(props => {
   return (
     <GoogleMap
       defaultZoom={11}
       defaultCenter={{ lat: 40.686795, lng: -73.954298 }}
-      tabIndex = {-1}
-      defaultOptions = {{styles: mapStyles}}
+      defaultOptions={{ styles: mapStyles }}
     >
       <MarkerComponent
         places={props.state && props.state.places}
@@ -22,6 +20,7 @@ const GoogleMapExample = withGoogleMap(props => {
   );
 });
 
+//Map component which renders Map, Marker and InfoWindow
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +29,7 @@ class Map extends Component {
     };
   }
 
+  //Adding extra properties to the recieved prop and updating the local state with it
   componentWillReceiveProps(nextProps) {
     if (nextProps.places) {
       let newState = nextProps.places.slice();
@@ -43,9 +43,14 @@ class Map extends Component {
       });
     }
   }
-  shouldComponentUpdate(nextProps){
-      return JSON.stringify(nextProps) === JSON.stringify(this.props) ? false : true;
+
+  //Preventing  rerendering  if no new props is recieved
+  shouldComponentUpdate(nextProps) {
+    return JSON.stringify(nextProps) === JSON.stringify(this.props)
+      ? false
+      : true;
   }
+
   render() {
     return (
       <div style={{ height: "90%" }}>
