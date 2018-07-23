@@ -42,7 +42,7 @@ class App extends Component {
             params: qs
           })
           .then(res => res.data.response)
-          .catch(err => console.log(err))
+          .catch(err => new Error(err))
           .then(data => {
             dataToState.push({
               id: data.venue.id,
@@ -55,7 +55,7 @@ class App extends Component {
               address: data.venue.location.address,
               rating: data.venue.rating
             });
-          });
+          }).catch(err => new Error(err));
       });
       await Promise.all(promise).then(res => {
         this.setState({
