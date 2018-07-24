@@ -3,11 +3,11 @@ import axios from "axios";
 import Map from "../Maps/Maps";
 import Navbar from "../Navbar/Navbar";
 import ListView from "../ListView/ListView";
+import Error from "../Error/Error";
 import "./App.css";
 import JSONData from "../../data/places.json";
 
 //Main component
-
 
 class App extends Component {
   constructor(props) {
@@ -24,8 +24,8 @@ class App extends Component {
   //AJAX calls are made here
   componentDidMount() {
     let qs = {
-      client_id: "LX3HO40LOFXT5PZWTZCDPQ2VX1C1YAM1PMZMXTM4L54QQVWG",
-      client_secret: "Y2CJ3P3SGAU0C3RPSQRCBM0I5S5JDT1A4GSNUX4XK3ZNMV3R",
+      client_id: "DFRBQC3D0JMJT4VRQDJBOT4TBTB1KDAXUI5PMC2GZMEVHFOD",
+      client_secret: "1P3CFUEXPXI00QE0AAQ0GKO0PEOV4U3KD423LASWVMKTGZPQ",
       v: "20180323"
     };
 
@@ -69,10 +69,13 @@ class App extends Component {
             });
           })
           .catch(err => {
-            this.setState({
-              errorDisplay: `The following error in preventing the app from rendering data. ${err.toString()}. 
+            this.setState(prevState => ({
+              errorDisplay:
+                prevState.errorDisplay.length === 0
+                  ? `The following error in preventing the app from rendering data. ${err.toString()}. 
                              Check console for more details`
-            });
+                  : prevState.errorDisplay
+            }));
             new Error(console.log(err));
           });
       });
@@ -110,14 +113,17 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar listViewOpenHandler={this.listViewOpenHandler} />
-        {this.state.errorDisplay && <div>{this.state.errorDisplay}</div>}
+        {console.log(this.state.errorDisplay)}
+        {this.state.errorDisplay && (
+          <Error errorDisplay={this.state.errorDisplay} />
+        )}
         <ListView
           mainState={this.state}
           listFilterHandler={this.listFilterHandler}
           listItemClickedHandler={this.listItemClickedHandler}
         />
         <Map
-          role = "main"
+          role="main"
           places={this.state.places}
           query={this.state.query}
           idClicked={this.state.idClicked}
