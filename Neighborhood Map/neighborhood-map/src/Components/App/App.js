@@ -8,6 +8,7 @@ import JSONData from "../../data/places.json";
 
 //Main component
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -23,8 +24,8 @@ class App extends Component {
   //AJAX calls are made here
   componentDidMount() {
     let qs = {
-      client_id: "XKLKXYYCS2SOQ5BQNFA33SZQNX50Q55XX4KJ4OQEUGN40NBE",
-      client_secret: "PCU0HS4RNKIFBM0GMT10FFSNKV2ZIOROEQEXKEQAEG3O3AD5",
+      client_id: "LX3HO40LOFXT5PZWTZCDPQ2VX1C1YAM1PMZMXTM4L54QQVWG",
+      client_secret: "Y2CJ3P3SGAU0C3RPSQRCBM0I5S5JDT1A4GSNUX4XK3ZNMV3R",
       v: "20180323"
     };
 

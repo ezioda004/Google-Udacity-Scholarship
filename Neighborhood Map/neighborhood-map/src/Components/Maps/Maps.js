@@ -1,24 +1,27 @@
 import React, { Component } from "react";
-import { withGoogleMap, GoogleMap } from "react-google-maps";
+import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
 import MarkerComponent from "../Marker/Marker";
 import mapStyles from "../../data/mapStyles.json";
 
 //Initializing the map outside the component so it doesnt rerender
-const GoogleMapExample = withGoogleMap(props => {
-  return (
-    <GoogleMap
-      defaultZoom={11}
-      defaultCenter={{ lat: 40.686795, lng: -73.954298 }}
-      defaultOptions={{ styles: mapStyles }}
-    >
-      <MarkerComponent
-        places={props.state && props.state.places}
-        query={props.query}
-        idClicked={props.idClicked}
-      />
-    </GoogleMap>
-  );
-});
+
+const GoogleMapExample = withScriptjs(
+  withGoogleMap(props => {
+    return (
+      <GoogleMap
+        defaultZoom={11}
+        defaultCenter={{ lat: 40.686795, lng: -73.954298 }}
+        defaultOptions={{ styles: mapStyles }}
+      >
+        <MarkerComponent
+          places={props.state && props.state.places}
+          query={props.query}
+          idClicked={props.idClicked}
+        />
+      </GoogleMap>
+    );
+  })
+);
 
 //Map component which renders Map, Marker and InfoWindow
 class Map extends Component {
@@ -43,7 +46,6 @@ class Map extends Component {
       });
     }
   }
-
   //Preventing  rerendering  if no new props is recieved
   shouldComponentUpdate(nextProps) {
     return JSON.stringify(nextProps) === JSON.stringify(this.props)
@@ -53,13 +55,15 @@ class Map extends Component {
 
   render() {
     return (
-      <div style={{ height: "90%" }}>
+      <div style={{ height: "90%" }} role="application">
         <GoogleMapExample
           containerElement={<div style={{ height: `100%`, width: "100%" }} />}
           mapElement={<div style={{ height: `100%` }} />}
           state={this.state}
           query={this.props.query}
           idClicked={this.props.idClicked}
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAihs7deqk7Q6wjoXJzhAD1eUsBjk8-piU"
+          loadingElement={<div style={{ height: `100%` }} />}
         />
       </div>
     );
