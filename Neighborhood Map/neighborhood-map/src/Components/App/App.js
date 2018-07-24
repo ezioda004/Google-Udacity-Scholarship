@@ -6,7 +6,7 @@ import ListView from "../ListView/ListView";
 import "./App.css";
 import JSONData from "../../data/places.json";
 
-//Main component 
+//Main component
 
 class App extends Component {
   constructor(props) {
@@ -15,15 +15,16 @@ class App extends Component {
       shouldListViewOpen: false,
       query: "",
       places: "",
-      idClicked: ""
+      idClicked: "",
+      errorDisplay: ""
     };
   }
 
   //AJAX calls are made here
   componentDidMount() {
     let qs = {
-      client_id: "S2RTLNVMERJSF3F31QQXUBLVRS5UPRFOUVHAU3PIIYBY1PBZ",
-      client_secret: "2Z44VR25J2QKXILXRK3DGDO5L5ZIUV5ILAVVNIEPGTZEHQAU",
+      client_id: "XKLKXYYCS2SOQ5BQNFA33SZQNX50Q55XX4KJ4OQEUGN40NBE",
+      client_secret: "PCU0HS4RNKIFBM0GMT10FFSNKV2ZIOROEQEXKEQAEG3O3AD5",
       v: "20180323"
     };
 
@@ -43,9 +44,14 @@ class App extends Component {
           })
           .then(res => res.data.response)
           .catch(err => {
-            new Error(console.log(err))
-            if (err.toString().includes(429)){
-              console.log("FourSquare API quota has been exceeded.")
+            new Error(console.log(err));
+            if (err.toString().includes(429)) {
+              const error =
+                "FourSquare API quota has been exceeded. Check console for more errors";
+              console.log(error);
+              this.setState({
+                errorDisplay: error
+              });
             }
           })
           .then(data => {
@@ -60,7 +66,14 @@ class App extends Component {
               address: data.venue.location.address,
               rating: data.venue.rating
             });
-          }).catch(err => new Error(console.log(err)));
+          })
+          .catch(err => {
+            this.setState({
+              errorDisplay: `The following error in preventing the app from rendering data. ${err.toString()}. 
+                             Check console for more details`
+            });
+            new Error(console.log(err));
+          });
       });
       await Promise.all(promise).then(res => {
         this.setState({
@@ -96,12 +109,14 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar listViewOpenHandler={this.listViewOpenHandler} />
+        {this.state.errorDisplay && <div>{this.state.errorDisplay}</div>}
         <ListView
           mainState={this.state}
           listFilterHandler={this.listFilterHandler}
           listItemClickedHandler={this.listItemClickedHandler}
         />
         <Map
+          role = "main"
           places={this.state.places}
           query={this.state.query}
           idClicked={this.state.idClicked}

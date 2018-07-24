@@ -34,7 +34,7 @@ class MarkerComponent extends Component {
     });
     setTimeout(() => {
       this.state.places.map(
-        place => (place.id === id ? (place.animation = 0) && place : place)
+        place => (place.id === id ? (place.animation = 2) && place : place)
       );
       this.setState(() => {
         return { places: marker };
@@ -50,7 +50,9 @@ class MarkerComponent extends Component {
       });
     }
     if (nextProps.idClicked) {
+      this.animateMarkerBounce(nextProps.idClicked)
       this.setState(prevState => {
+        
         const updatedPlace = prevState.places.map(
           place =>
             place.id === nextProps.idClicked
@@ -72,6 +74,7 @@ class MarkerComponent extends Component {
   }
   render() {
     //Making a place list as well as filtering with any query passed
+    console.log(this.state.places);
     const place =
       this.state.places &&
       this.state.places
