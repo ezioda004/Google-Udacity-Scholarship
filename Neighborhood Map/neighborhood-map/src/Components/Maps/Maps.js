@@ -68,7 +68,7 @@ class Map extends Component {
           state={this.state}
           query={this.props.query}
           idClicked={this.props.idClicked}
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAihs7deqk7Q6wjoXJzhAD1eUsBjk8-piUa"
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAihs7deqk7Q6wjoXJzhAD1eUsBjk8-piU"
           loadingElement={<div style={{ height: `100%` }} />}
         />
       </div>
