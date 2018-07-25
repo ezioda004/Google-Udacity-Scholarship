@@ -46,6 +46,12 @@ class Map extends Component {
       });
     }
   }
+  componentDidMount() {
+    window.gm_authFailure = this.gm_authFailure;
+  }
+  gm_authFailure = () => {
+    this.props.authFailedError("Authorization failed! Please check your API key and console for more details");
+  }
   //Preventing  rerendering  if no new props is recieved
   shouldComponentUpdate(nextProps) {
     return JSON.stringify(nextProps) === JSON.stringify(this.props)
@@ -62,7 +68,7 @@ class Map extends Component {
           state={this.state}
           query={this.props.query}
           idClicked={this.props.idClicked}
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAihs7deqk7Q6wjoXJzhAD1eUsBjk8-piU"
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAihs7deqk7Q6wjoXJzhAD1eUsBjk8-piUa"
           loadingElement={<div style={{ height: `100%` }} />}
         />
       </div>

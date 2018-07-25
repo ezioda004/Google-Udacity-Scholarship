@@ -109,6 +109,12 @@ class App extends Component {
     });
   };
 
+  authFailedError = (error) => {
+    this.setState({
+      errorDisplay: error
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -127,6 +133,7 @@ class App extends Component {
           places={this.state.places}
           query={this.state.query}
           idClicked={this.state.idClicked}
+          authFailedError = {this.authFailedError}
         />
       </div>
     );
