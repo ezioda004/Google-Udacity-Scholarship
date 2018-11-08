@@ -8,6 +8,7 @@ A Single Page App made by using create-react-app, Google Maps API and Foursquare
 - [Usage](#usage)
 - [Support](#support)
 - [Contributing](#contributing)
+- [Live Preview](#livepreview)
 
 ## Installation
 
@@ -69,3 +70,7 @@ Please [open an issue](https://github.com/ezioda004/Google-Udacity-Scholarship/i
 ## Contributing
 
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/ezioda004/Google-Udacity-Scholarship/pulls).
+
+## Live Preview
+
+The website is live at https://neighborhood-map-ezioda004.netlify.com

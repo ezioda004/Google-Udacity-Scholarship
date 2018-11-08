@@ -24,8 +24,8 @@ class App extends Component {
   //AJAX calls are made here
   componentDidMount() {
     let qs = {
-      client_id: "PJE21YRYU1VGUYDTTVHBI44AFLV1P0TYAP2RZUIQOF4DIYQR",
-      client_secret: "5KKL4A5M4OYHEUJULZGDPOY52WPXIANA1RQH5AODVSEQAOOI",
+      client_id: "IPHUUSHUMPLI3KOW0T0HTJJEOHYNGG3V5FJEVSXSL52EWGAL",
+      client_secret: "0HB1V2JIBVVZLKNIJ233OYLHNFULTLH4WOEG2K2WJFR3ENOH",
       v: "20180323"
     };
 
